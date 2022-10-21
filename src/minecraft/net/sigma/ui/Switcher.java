@@ -38,6 +38,7 @@ public class Switcher extends GuiScreen{
 	private static ResourceLocation blur = new ResourceLocation("shader/post/blur.json");
 	TTFFontRenderer sigmaFr = FontManager.getFontQuality("sigma", 4.5f);
 	TTFFontRenderer prodFr = FontManager.getFontQuality("sigma", 2f);
+	TTFFontRenderer jell = FontManager.getFontQuality("jelloregular", 1.2f);
 	TTFFontRenderer sigma = FontManager.getFontQuality("jellolight2", 1.3f);
 	TTFFontRenderer jello = FontManager.getFontQuality("jellolight2", 0.62f);
 
@@ -70,15 +71,15 @@ public class Switcher extends GuiScreen{
 		this.drawModalRectWithCustomSizedTexture(-animatedMouseX / 28f, -animatedMouseY / 27f, 0.0f, 0.0f, this.width * 1.04f, this.height * 1.04f, this.width * 1.04f, this.height * 1.04);
 		
 		GlStateManager.color(1, 1, 1, 1);
-		/*DrawUtils.drawImageDiv2(this.width / 2 + 75, this.height / 2 - 90, 114, 29, new ResourceLocation("Sigma/switcher/prod.png"));
-		DrawUtils.drawImageDiv2(this.width / 2 - 80, this.height / 2 - 90, 314, 70, new ResourceLocation("Sigma/switcher/sigma.png"));*/
 		sigmaFr.drawStringScaled("Sigma", this.width / 2 - 83, this.height / 2 - 100, -1, 4.5f);
 		prodFr.drawStringScaled("PROD", this.width / 2 + 65, this.height / 2 - 95, -1, 2f);
 
 		{
 			this.drawRect(this.width / 2 - 170, this.height / 2 - 32 - posYHovered1, this.width / 2 + 170, this.height / 2 + 20 - posYHovered1, new Color(0, 0, 0, 150).getRGB());		
 			if (x) this.drawRect(this.width / 2 - 170, this.height / 2 - 32 - posYHovered1, this.width / 2 + 170, this.height / 2 + 20 - posYHovered1, new Color(145, 0, 145, 100).getRGB());		
-
+			jell.drawStringScaled("No Addons", this.width / 2 + 155 - jell.getWidth("No Addons"), (float) (this.height / 2 - 21 - posYHovered1), -1, 1.2f);
+			FontManager.jelloLight.drawString("1.7.x - 1.19.x", this.width / 2 + 185 - jell.getWidth("1.7.x - 1.19.x Jello"), (float) (this.height / 2  - 8.5 - posYHovered1), -1);
+		
 			{
 				
 				GlStateManager.disableAlpha();
@@ -97,6 +98,9 @@ public class Switcher extends GuiScreen{
 			this.drawRect(this.width / 2 - 170, this.height / 2 + 28 - posYHovered2, this.width / 2 - 5, this.height / 2 + 70 - posYHovered2, new Color(0, 0, 0, 150).getRGB());
 			if (x1) this.drawRect(this.width / 2 - 170, this.height / 2 + 28 - posYHovered2, this.width / 2 - 5, this.height / 2 + 70 - posYHovered2, new Color(145, 0, 145, 100).getRGB());
 
+			jell.drawStringScaled("Classic", this.width / 2 - 16 - jell.getWidth("Classic"), (float) (this.height / 2 + 41 - posYHovered2), -1, 1.21f);
+			FontManager.jelloLight.drawString("1.7.x - 1.19.x", this.width / 2 - 26 - FontManager.jelloRegular.getWidth("1.7.x - 1.19.x Jello"), (float) (this.height / 2 + 42.5 - posYHovered2), -1);
+		
 		}
 		
 		{
@@ -110,6 +114,9 @@ public class Switcher extends GuiScreen{
 			jello.drawStringScaled("Move", this.width / 2 + 13, this.height / 2 + 48 - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
 			jello.drawStringScaled("Player", this.width / 2 + 11, this.height / 2 + (48 + 6) - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
 			jello.drawStringScaled("Combat", this.width / 2 + 11, this.height / 2 + (48 + 12) - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
+
+			jell.drawStringScaled("Jello", this.width / 2 + 161 - jell.getWidth("Jello"), (float) (this.height / 2 + 41 - posYHovered3), -1, 1.2f);
+			FontManager.jelloLight.drawString("1.7.x - 1.19.x", this.width / 2 + 162 - FontManager.jelloRegular.getWidth("1.7.x - 1.19.x Jello"), (float) (this.height / 2 + 42.5 - posYHovered3), -1);
 		}
 		
 		
@@ -118,12 +125,12 @@ public class Switcher extends GuiScreen{
 		} else {
 			x = false;
 		}
-		if (isHovered(this.width / 2 - 170, this.height / 2 + 28, this.width / 2 - 10, this.height / 2 + 70, mouseX, mouseY) ) {
+		if (isHovered(this.width / 2 - 170, this.height / 2 + 28, this.width / 2 - 5, this.height / 2 + 70, mouseX, mouseY) ) {
 			x1 = true;
 		} else {
 			x1 = false;
 		}
-		if (isHovered(this.width / 2 + 10, this.height / 2 + 28, this.width / 2 + 170, this.height / 2 + 70, mouseX, mouseY) ) {
+		if (isHovered(this.width / 2 + 5, this.height / 2 + 28, this.width / 2 + 170, this.height / 2 + 70, mouseX, mouseY) ) {
 			x2 = true;
 		} else {
 			x2 = false;
