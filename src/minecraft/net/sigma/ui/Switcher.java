@@ -38,7 +38,9 @@ public class Switcher extends GuiScreen{
 	private static ResourceLocation blur = new ResourceLocation("shader/post/blur.json");
 	TTFFontRenderer sigmaFr = FontManager.getFontQuality("sigma", 4.5f);
 	TTFFontRenderer prodFr = FontManager.getFontQuality("sigma", 2f);
-	
+	TTFFontRenderer sigma = FontManager.getFontQuality("jellolight2", 1.3f);
+	TTFFontRenderer jello = FontManager.getFontQuality("jellolight2", 0.62f);
+
 	public Switcher() {
 		animatedMouseX = 0;
 		animatedMouseY = 0;
@@ -101,8 +103,15 @@ public class Switcher extends GuiScreen{
 			this.drawRect(this.width / 2 + 5, this.height / 2 + 28 - posYHovered3, this.width / 2 + 170, this.height / 2 + 70 - posYHovered3, new Color(0, 0, 0, 150).getRGB());
 			if (x2) this.drawRect(this.width / 2 + 5, this.height / 2 + 28 - posYHovered3, this.width / 2 + 170, this.height / 2 + 70 - posYHovered3, new Color(145, 0, 145, 100).getRGB());
 			
+			sigma.drawStringScaled("Sigma", this.width / 2 + 9, this.height / 2 + 29 - posYHovered3, new Color(255, 255, 255, 130).getRGB(), 1.3f);
+			jello.drawStringScaled("Jello", this.width / 2 + 9, this.height / 2 + 40.7 - posYHovered3, new Color(255, 255, 255, 130).getRGB(), 0.62f);
+			
+			drawRect(this.width / 2 + 9, this.height / 2 + 48 - posYHovered3, this.width / 2 + 32, this.height / 2 + 67 - posYHovered3, new Color(255, 255, 255, 60).getRGB());
+			jello.drawStringScaled("Move", this.width / 2 + 13, this.height / 2 + 48 - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
+			jello.drawStringScaled("Player", this.width / 2 + 11, this.height / 2 + (48 + 6) - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
+			jello.drawStringScaled("Combat", this.width / 2 + 11, this.height / 2 + (48 + 12) - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
 		}
-				
+		
 		
 		if (isHovered(this.width / 2 - 170, this.height / 2 - 32, this.width / 2 + 170, this.height / 2 + 20, mouseX, mouseY) ) {
 			x = true;

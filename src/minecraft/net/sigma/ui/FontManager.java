@@ -11,8 +11,8 @@ public class FontManager {
 	public static TTFFontRenderer jelloMedium = getSizedFont("jellomedium", 18);
 	public static TTFFontRenderer jelloRegular = getSizedFont("jelloregular", 18);
 	public static TTFFontRenderer jellofr = getSizedFont("Jello", 18);
+	public static TTFFontRenderer sigmaJello = getFont("jellolight2");
 	public static TTFFontRenderer sfUi = getSizedFont("sfui", 18);
-	public static TTFFontRenderer sigma = getFont("sigma");
 	
 	public static TTFFontRenderer getFont(String name) {
 		return new TTFFontRenderer(name, 0, 18, 0, 1);

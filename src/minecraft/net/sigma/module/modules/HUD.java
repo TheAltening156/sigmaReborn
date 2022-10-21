@@ -19,7 +19,7 @@ import net.sigma.utils.DrawUtils;
 
 public class HUD extends Module{
 	public TTFFontRenderer fr = FontManager.jelloLight;
-	public TTFFontRenderer bigfr;
+	public static TTFFontRenderer bigfr = FontManager.getFontQuality("jellolight2", 3.3f);
 	public static GuiOverlayDebug xddd = new GuiOverlayDebug(Minecraft.getMinecraft());
 	
 	public HUD() {
@@ -29,7 +29,6 @@ public class HUD extends Module{
 	
 	@Override
 	public void onEnable() {
-		bigfr = FontManager.getFontQuality("jellolight2", 3.3f);
 		super.onEnable();
 	}
 	

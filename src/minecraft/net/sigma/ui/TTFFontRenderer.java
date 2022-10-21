@@ -141,7 +141,7 @@ public class TTFFontRenderer {
 		return Font.createFont(0, Sigma.class.getResourceAsStream(path));
 	}
 
-	public void drawStringScaled(String text, int givenX, int givenY, int color, double givenScale) {
+	public void drawStringScaled(String text, double givenX, double givenY, int color, double givenScale) {
 		GL11.glPushMatrix();
 		GL11.glTranslated(givenX, givenY, 0.0);
 		GL11.glScaled(givenScale, givenScale, givenScale);
