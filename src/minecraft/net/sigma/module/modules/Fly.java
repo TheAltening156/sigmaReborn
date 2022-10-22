@@ -54,7 +54,7 @@ public class Fly extends Module{
 					
 					mc.thePlayer.setPosition(mc.thePlayer.posX, mc.thePlayer.posY + -val, mc.thePlayer.posZ);
 
-					MoveUtils.strafe(0.20);
+					MoveUtils.strafe(0.30);//0.20
 
 				}
 				mc.thePlayer.motionY = 0;

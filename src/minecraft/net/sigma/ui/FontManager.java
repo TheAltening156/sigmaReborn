@@ -7,6 +7,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 public class FontManager {
+	/*
+	* jelloLight
+	*/
 	public static TTFFontRenderer jelloLight = getSizedFont("jellolight", 18);
 	public static TTFFontRenderer jelloMedium = getSizedFont("jellomedium", 18);
 	public static TTFFontRenderer jelloRegular = getSizedFont("jelloregular", 18);

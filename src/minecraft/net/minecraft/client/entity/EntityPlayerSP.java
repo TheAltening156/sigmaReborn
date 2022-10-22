@@ -309,12 +309,13 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void sendChatMessage(String message)
     {
-    	if (Display.getTitle() != "Sigma - Remake | Minecraft 1.8.8" || Sigma.initailised) {
+    	if (Sigma.initailised) {
 	    	EventGetChat c = new EventGetChat(message);
 	    	c.setType(EventType.PRE);
 	    	Sigma.getEvent().onEvent(c);
 	    	if (c.cancelled)
 	    		return;
+	        this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
     	} else 
         this.sendQueue.addToSendQueue(new C01PacketChatMessage(message));
     }

@@ -40,6 +40,7 @@ public class ClickGUI extends GuiScreen {
 	private static float lastOutro;
 	private static boolean showSettings;
 	private static TTFFontRenderer fr = FontManager.jelloLight;
+	private static TTFFontRenderer lolfr = FontManager.getFontQuality("jellolight", 1.03f);
 	private static TTFFontRenderer settsfr = FontManager.getFontQuality("jelloregular", 1.29f);
 	private static TTFFontRenderer catfr = FontManager.getFontQuality("jellolight2", 1.25f);
 	public static TTFFontRenderer bigfr = FontManager.getFontQuality("jellomedium", 2.1f);
@@ -108,7 +109,7 @@ public class ClickGUI extends GuiScreen {
 							drawRect(modX - 12, modY - 2, modX + 88, modY + 12.8, m.isToggled() ? new Color(28, 158, 255).getRGB() : -1 );							
 						}
 						
-						fr.drawString(m.getName(), m.isToggled() ? modX + 5 : modX, modY, m.isToggled() ? -1 : 1);
+						lolfr.drawStringScaled(m.getName(), m.isToggled() ? modX + 5 : modX, modY - 0.5f, m.isToggled() ? -1 : 1, 1.03f);
 						modY += 15;	
 					}
 				}

@@ -85,7 +85,7 @@ public class Switcher extends GuiScreen{
 				GlStateManager.disableAlpha();
 				GlStateManager.enableBlend();
 				GL11.glDepthMask(false);
-		        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("Sigma/normal.png"));
+		        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("Sigma/switcher/normal.png"));
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 0.8f);
 		        drawModalRectWithCustomSizedTexture(this.width / 2 - 170, this.height / 2 - 32 - posYHovered1, 0.0f, 0.0f, 141, 52, 141, 52);
 		        GL11.glDepthMask(true);
@@ -100,23 +100,51 @@ public class Switcher extends GuiScreen{
 
 			jell.drawStringScaled("Classic", this.width / 2 - 16 - jell.getWidth("Classic"), (float) (this.height / 2 + 41 - posYHovered2), -1, 1.21f);
 			FontManager.jelloLight.drawString("1.7.x - 1.19.x", this.width / 2 - 26 - FontManager.jelloRegular.getWidth("1.7.x - 1.19.x Jello"), (float) (this.height / 2 + 42.5 - posYHovered2), -1);
-		
+			
+			{
+				float x1 = 27f;
+				float y1 = 42f;
+				GlStateManager.disableAlpha();
+				GlStateManager.enableBlend();
+				GL11.glDepthMask(false);
+		        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("Sigma/switcher/old.png"));
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 0.8f);
+		        drawModalRectWithCustomSizedTexture(this.width / 2 - 170, this.height / 2 + 28 - posYHovered2, 0.0f, 0.0f, x1, y1, x1, y1);
+		        GL11.glDepthMask(true);
+		        GlStateManager.disableBlend();
+				GlStateManager.enableAlpha();
+			}
 		}
 		
 		{
+			
 			this.drawRect(this.width / 2 + 5, this.height / 2 + 28 - posYHovered3, this.width / 2 + 170, this.height / 2 + 70 - posYHovered3, new Color(0, 0, 0, 150).getRGB());
 			if (x2) this.drawRect(this.width / 2 + 5, this.height / 2 + 28 - posYHovered3, this.width / 2 + 170, this.height / 2 + 70 - posYHovered3, new Color(145, 0, 145, 100).getRGB());
 			
-			sigma.drawStringScaled("Sigma", this.width / 2 + 9, this.height / 2 + 29 - posYHovered3, new Color(255, 255, 255, 130).getRGB(), 1.3f);
+			//Fake 
+			/*sigma.drawStringScaled("Sigma", this.width / 2 + 9, this.height / 2 + 29 - posYHovered3, new Color(255, 255, 255, 130).getRGB(), 1.3f);
 			jello.drawStringScaled("Jello", this.width / 2 + 9, this.height / 2 + 40.7 - posYHovered3, new Color(255, 255, 255, 130).getRGB(), 0.62f);
 			
 			drawRect(this.width / 2 + 9, this.height / 2 + 48 - posYHovered3, this.width / 2 + 32, this.height / 2 + 67 - posYHovered3, new Color(255, 255, 255, 60).getRGB());
 			jello.drawStringScaled("Move", this.width / 2 + 13, this.height / 2 + 48 - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
 			jello.drawStringScaled("Player", this.width / 2 + 11, this.height / 2 + (48 + 6) - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
 			jello.drawStringScaled("Combat", this.width / 2 + 11, this.height / 2 + (48 + 12) - posYHovered3, new Color(255, 255, 255, 180).getRGB(), 0.62f);
-
+*/
 			jell.drawStringScaled("Jello", this.width / 2 + 161 - jell.getWidth("Jello"), (float) (this.height / 2 + 41 - posYHovered3), -1, 1.2f);
 			FontManager.jelloLight.drawString("1.7.x - 1.19.x", this.width / 2 + 162 - FontManager.jelloRegular.getWidth("1.7.x - 1.19.x Jello"), (float) (this.height / 2 + 42.5 - posYHovered3), -1);
+			{
+				float x1 = 165f;//165 //125
+				float y1 = 42;
+				GlStateManager.disableAlpha();
+				GlStateManager.enableBlend();
+				GL11.glDepthMask(false);
+		        Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation("Sigma/switcher/new.png"));
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 0.8f);
+		        drawModalRectWithCustomSizedTexture(this.width / 2 + 5, this.height / 2 + 28 - posYHovered3, 0.0f, 0.0f, x1, y1, x1, y1);
+		        GL11.glDepthMask(true);
+		        GlStateManager.disableBlend();
+				GlStateManager.enableAlpha();
+			}
 		}
 		
 		
