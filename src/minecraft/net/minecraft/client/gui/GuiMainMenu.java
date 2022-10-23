@@ -517,14 +517,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-    	/*ScaledResolution sr = new ScaledResolution(mc);
-    	 this.mc.getTextureManager().bindTexture(new ResourceLocation("Sigma/mainmenu.png"));
-         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-         Gui.drawModalRectWithCustomSizedTexture(-960.0f - GuiMainMenu.animatedMouseX + this.width, -9.0f - GuiMainMenu.animatedMouseY /9.5f + this.height / 19 - 19.0f, 0.0f, 0.0f, 1920.0, 597.0, 1920.0, 597.0);
-         
-         animatedMouseX = mouseX;
-         animatedMouseY = mouseY;*/
-         
         GlStateManager.disableAlpha();
         this.renderSkybox(mouseX, mouseY, partialTicks);
         GlStateManager.enableAlpha();
