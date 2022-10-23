@@ -69,11 +69,6 @@ public class JelloMainMenu extends GuiScreen {
 				
 		double posX = this.width / 2 - 153;
 		int idk = 64;
-		/*DrawUtils.drawImage(posX, this.height / 2 + 5, idk, idk, new ResourceLocation("Sigma/mainmenu/Singleplayer.png"));
-		DrawUtils.drawImage(posX + 61, this.height / 2 + 5, idk, idk, new ResourceLocation("Sigma/mainmenu/Multiplayer.png"));
-		DrawUtils.drawImage(posX + 122, this.height / 2 + 5, idk, idk, new ResourceLocation("Sigma/mainmenu/Connect.png"));
-		DrawUtils.drawImage(posX + 183, this.height / 2 + 5, idk, idk, new ResourceLocation("Sigma/mainmenu/Settings.png"));
-		DrawUtils.drawImage(posX + 244, this.height / 2 + 5, idk, idk, new ResourceLocation("Sigma/mainmenu/AltManager.png"));*/
 
 		for (String name : new String[] {"Singleplayer", "Multiplayer", "Connect", "Settings", "AltManager"}) {
 			boolean hovered = isHovered(posX + 8, this.height / 2 + 13, posX + 56, this.height / 2 + 61, mouseX, mouseY);
