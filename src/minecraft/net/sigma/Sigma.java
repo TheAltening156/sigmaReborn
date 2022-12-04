@@ -12,7 +12,7 @@ import viamcp.ViaMCP;
 
 public class Sigma {
 	public static String name = "Sigma - Remake";
-	public static String version = "B0.3";
+	public static String version = "B0.4";
 	public static Minecraft mc = Minecraft.getMinecraft();
 	public static Event e = new Event();
 	public static ModuleManager mod;

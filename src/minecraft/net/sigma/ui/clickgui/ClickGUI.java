@@ -79,7 +79,7 @@ public class ClickGUI extends GuiScreen {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		ScaledResolution sr = new ScaledResolution(mc);
 		for (Cat c : Cat.values()) {
-			DrawUtils.drawImage(c.posX - 11.5, c.posY - 11.5, 122, 183, new ResourceLocation("Sigma/s.jpg"));
+			DrawUtils.drawImage(c.posX - 11.5, c.posY - 11.5, 122, c.showMods ? 183 : 54, new ResourceLocation("Sigma/" + (c.showMods ? "c" : "c1") + ".png"));
 		}
 		for (Cat c : Cat.values()) {
 			if (c.clicked) {
@@ -91,10 +91,6 @@ public class ClickGUI extends GuiScreen {
 			
 			drawRect(posX, posY, posX + 100, posY + 30, new Color(240, 240, 240, 248).getRGB());
 			catfr.drawStringScaled(c.name, posX + 10, posY + 8, new Color(99, 99, 99, 178).getRGB(), 1.25f);
-		}
-		for (Cat c : Cat.values()) {
-			int posX = c.posX;
-			int posY = c.posY;
 			if (c.showMods) {
 				
 				drawRect(posX, posY + 30, posX + 100, posY + 160, -1);
@@ -119,8 +115,6 @@ public class ClickGUI extends GuiScreen {
 					}
 				}
 			}
-		}for (Cat c : Cat.values()) {
-			DrawUtils.drawImage(c.posX, c.posY + 30, 100, 30, new ResourceLocation("Sigma/clickguiShadow.png"));
 		}
 		if (this.showSettings) {
 			Gui.drawRect(0, 0, sr.getScaledWidth(), sr.getScaledHeight(), new Color(0,0,0,120).getRGB());
@@ -131,6 +125,37 @@ public class ClickGUI extends GuiScreen {
 		int settsX = sr.getScaledWidth() / 2 - 110;
 		int settsY = sr.getScaledHeight() / 2 - 110;
 		int settsWidth = this.width / 2 + 100;
+		for (Module m : ModuleManager.mods) {
+			for (Settings s : m.settings) {
+				if (m.showSettings) {
+					if (s instanceof ModeSettings) {
+						ModeSettings lmfao = (ModeSettings) s;
+						if (lmfao.isShown) {
+							byte b;
+							int i;
+							String[] string11;
+							for (i = (string11 = lmfao.modess).length, b = 0; b < i;) {
+								String string1 = string11[b];
+								settsY += 14;
+								b++;
+							}
+						}
+					}
+					if (s instanceof NumberSettings) {
+						NumberSettings num = (NumberSettings) s;
+						double min = num.getMin();
+						double max = num.getMax();
+						double diff = (max - min);
+						double rdrWidth = 61 * ((num.getVar() - min) / diff);
+						DrawUtils.drawShadowImage(settsX + rdrWidth + 128, settsY - 12, 42, 34, new ResourceLocation("Sigma/shadow.png"));
+					}
+					settsY += 18;
+				}
+			}
+		}
+		settsX = sr.getScaledWidth() / 2 - 110;
+		settsY = sr.getScaledHeight() / 2 - 110;
+		settsWidth = this.width / 2 + 100;
 		//int settsHeight = this.height / 2 + 150;
 		for (Module m : ModuleManager.mods) {
 			if (m.showSettings) {
@@ -147,7 +172,7 @@ public class ClickGUI extends GuiScreen {
 					if (s instanceof ModeSettings) {
 						ModeSettings lmfao = (ModeSettings) s;
 						settsfr.drawStringScaled(s.name, settsX, settsY, 1, 1.29f);
-						fr.drawString(lmfao.isShown ? "<" : ">", settsWidth - fr.getWidth(">"), settsY, isHovered(settsWidth - 60, settsY, settsWidth, settsY + 13, mouseX, mouseY) || lmfao.isShown ? new Color(55, 55, 55).getRGB() : new Color(145, 145, 145).getRGB());
+						fr.drawString(lmfao.isShown ? "<" : ">", (int) (settsWidth - fr.getWidth(">")), settsY, isHovered(settsWidth - 60, settsY, settsWidth, settsY + 13, mouseX, mouseY) || lmfao.isShown ? new Color(55, 55, 55).getRGB() : new Color(145, 145, 145).getRGB());
 						fr.drawString(s.getVar().toString(), settsWidth - 60, settsY, new Color(55, 55, 55).getRGB());
 						if (lmfao.isShown) {
 							byte b;
@@ -172,7 +197,9 @@ public class ClickGUI extends GuiScreen {
 						double rdrWidth = 61 * ((num.getVar() - min) / diff);
 						DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth, settsY + 6, 4, new Color(213, 229, 248).getRGB());
 						DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth - 60 + rdrWidth, settsY + 6, 4, new Color(37, 146, 237).getRGB());
-						
+						DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
+						DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
+						DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
 						double mouseSnap = mouseX;
                         mouseSnap = Math.max((settsWidth - 60), mouseSnap);
                         mouseSnap = Math.min(settsWidth, mouseSnap);
@@ -182,18 +209,18 @@ public class ClickGUI extends GuiScreen {
                         drawRect((settsWidth - 60) + rdrWidth - 3.5, settsY, (settsWidth - 60) + rdrWidth + 3.5, settsY + 8, 1);
                         drawRect((settsWidth - 60) + rdrWidth - 3.5, settsY, (settsWidth - 60) + rdrWidth + 3.5, settsY + 8, 1);*/
               
-                        if (isHovered(settsWidth - 60, settsY + 2, settsWidth, settsY + 6, mouseX, mouseY) && Mouse.isButtonDown(0)) {
+                        if (isHovered(settsWidth - 68, settsY - 2, settsWidth + 5, settsY + 13, mouseX, mouseY) && Mouse.isButtonDown(0)) {
                        		num.setValue(val);
                        	}
 						settsfr.drawStringScaled(s.name, settsX, settsY, 1, 1.29f);
-						if (isHovered(settsWidth - 60, settsY + 2, settsWidth, settsY + 6, mouseX, mouseY)) {
+						if (isHovered(settsWidth - 68, settsY - 2, settsWidth + 5, settsY + 13, mouseX, mouseY)) {
 							fr.drawString(s.getVar().toString(), settsWidth - fr.getWidth(s.getVar().toString()) - 65, settsY - 2, new Color(125, 125, 125).getRGB());
 						}
+						//DrawUtils.drawRoundedRect(settsX + rdrWidth + 144, settsY - 1, settsX + 154 + rdrWidth, settsY + 9, 9, new Color(0, 0, 0, 150).getRGB());
 					}
 					if (s instanceof BooleanSettings) {
 						BooleanSettings b = (BooleanSettings) s;
 						settsfr.drawStringScaled(s.name, settsX, settsY, 1, 1.29f);	
-						//Gui.drawRect(settsWidth - 14, settsY - 1, settsWidth, settsY + 13, b.isToggled() ? new Color(37, 146, 237).getRGB() : new Color(200, 200, 200).getRGB());
 						if (b.toggled ) { 
 							DrawUtils.drawRoundedRect(settsWidth - 12, settsY, settsWidth, settsY + 12, 13, new Color(59, 153, 252).getRGB());
 							GL11.glColor4f(1, 1, 1, 1);

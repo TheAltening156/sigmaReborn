@@ -25,18 +25,14 @@ import viamcp.ViaMCP;
 
 public class JelloMainMenu extends GuiScreen {
 	private TTFFontRenderer bigfr = FontManager.getFontQuality("JelloLight1", 10);
-	private TTFFontRenderer namefr = FontManager.getFontQuality("jellolight", 1.4f);
+	public static TTFFontRenderer sigmaJello = FontManager.getFontQuality("jellolight2", 1.1f);
 	private float animatedMouseX;
 	private float animatedMouseY;
-	private boolean hovered;
-	private double val;
-	private String[] daName = new String[] {"Singleplayer", "Multiplayer", "Connect", "Settings", "AltManager"};
-	
+	private boolean hovered;	
 	@Override
 	public void initGui() {
 		animatedMouseX = 0;
 		animatedMouseY = 0;
-		val = 0d;
 		int x = this.width / 2 - 152;
 		int y = this.height / 2 + 5;
 		buttonList.add(new JelloButtons(0, x, y, "Singleplayer"));
@@ -45,11 +41,6 @@ public class JelloMainMenu extends GuiScreen {
 		buttonList.add(new JelloButtons(3, x + 183, y, "Settings"));
 		buttonList.add(new JelloButtons(4, x + 244, y, "AltManager"));
 		super.initGui();
-	}
-	
-	@Override
-	public void updateScreen() {
-	
 	}
 	
 	@Override
@@ -66,26 +57,17 @@ public class JelloMainMenu extends GuiScreen {
 		
 		bigfr.drawCenteredStringScaled("Jello", this.width / 2 - 5, this.height / 2 - 93, -1, 10f);
 				
-		FontManager.sigmaJello.drawStringScaled("\u00a9 Sigma Reborn", 4, this.height - 16, -1, 1f);
+		DrawUtils.drawShadowImage(1, this.height - 14, sigmaJello.getWidth("\u00a9 Sigma Reborn") + 25, 9, new ResourceLocation("Sigma/arraylistshadow.png"));
+		sigmaJello.drawStringScaled("\u00a9 Sigma Reborn", 4, this.height - 16, -1, 1.1f);
 		String namemdr = "Jello for Sigma " + Sigma.version + " - 1.7.x - 1.19.x";
-		FontManager.sigmaJello.drawStringScaled(namemdr, width - FontManager.sigmaJello.getStringWidth(namemdr) - 14, this.height - 16, -1, 1f);
+		sigmaJello.drawStringScaled(namemdr, width - sigmaJello.getWidth(namemdr) - 16, this.height - 16, -1, 1.1f);
 		
 		for (Object o : this.buttonList) {
 			GuiButton b = (GuiButton) o;
 			if (b instanceof JelloButtons) {
-				b.drawButton(mc, mouseX, mouseY);
+				((JelloButtons) b).drawButton(mc, mouseX, mouseY);
+				((JelloButtons) b).drawName();
 			}
-		}
-		double posX = this.width / 2 - 153;
-		int idk = 64;
-
-		for (String name : daName) {
-			//if (!hovered) {
-				//namefr.antiAliasingFactor = 1f;
-				namefr.drawCenteredStringScaled(name, (float) (posX + 31), this.height / 2 + 75, new Color(255, 255, 255, 180).getRGB(), 1.4f); // 180
-			//}
-			
-			posX += 61;
 		}
 		animatedMouseX = mouseX;
 		animatedMouseY = mouseY;
@@ -103,6 +85,18 @@ public class JelloMainMenu extends GuiScreen {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		if (button.id == 0) {
 			mc.displayGuiScreen(new GuiSelectWorld(this));
+		}
+		if (button.id == 1) {
+			mc.displayGuiScreen(new GuiMultiplayer(this));
+		}
+		if (button.id == 2) {
+			
+		}
+		if (button.id == 3) {
+			mc.displayGuiScreen(new GuiOptions(this, mc.gameSettings));
+		}
+		if (button.id == 4) {
+			
 		}
 	}
 }

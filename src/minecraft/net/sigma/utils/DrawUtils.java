@@ -3,6 +3,7 @@ package net.sigma.utils;
 import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -145,5 +146,45 @@ public class DrawUtils extends GuiScreen{
 		GL11.glEnable(3553);
 		GL11.glScaled(2.0D, 2.0D, 2.0D);
 		GL11.glPopAttrib();
+	}
+
+	public static void drawCircle(double x, double y, double offset, int color) {
+		GL11.glEnable(GL13.GL_MULTISAMPLE);
+    	GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
+        boolean blend = GL11.glIsEnabled((int) 3042);
+        boolean line = GL11.glIsEnabled((int) 2848);
+        boolean texture = GL11.glIsEnabled((int) 3553);
+        if (!blend) {
+            GL11.glEnable((int) 3042);
+        }
+        if (!line) {
+            GL11.glEnable((int) 2848);
+        }
+        if (texture) {
+            GL11.glDisable((int) 3553);
+        }
+        GL11.glBlendFunc((int) 770, (int) 771);
+        setColor(color);
+
+        GL11.glBegin((int) 9);
+        int i = 0;
+        while (i <= 360) {
+            GL11.glVertex2d(
+                    (double) ((double) x + Math.sin((double) ((double) i * 3.141526 / 180.0)) * (double) offset),
+                    (double) ((double) y + Math.cos((double) ((double) i * 3.141526 / 180.0)) * (double) offset));
+            ++i;
+        }
+        GL11.glEnd();
+        if (texture) {
+            GL11.glEnable((int) 3553);
+        }
+        if (!line) {
+            GL11.glDisable((int) 2848);
+        }
+        if (!blend) {
+            GL11.glDisable((int) 3042);
+        }
+        GL11.glDisable(GL11.GL_POLYGON_SMOOTH);
+        GL11.glClear(0);
 	}
 }
