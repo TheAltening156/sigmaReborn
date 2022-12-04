@@ -177,7 +177,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     {
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ)))
         {
-        	if (Sigma.initailised) {
+        	if (Sigma.initialized) {
 	        	EventUpdate e = new EventUpdate();
 	        	e.setType(EventType.PRE);
 	        	Sigma.getEvent().onEvent(e);
@@ -195,6 +195,9 @@ public class EntityPlayerSP extends AbstractClientPlayer
                 this.onUpdateWalkingPlayer();
             }
         }
+        EventUpdate e = new EventUpdate();
+        e.setType(EventType.POST);
+        Sigma.getEvent().onEvent(e);
     }
 
     /**
@@ -309,7 +312,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void sendChatMessage(String message)
     {
-    	if (Sigma.initailised) {
+    	if (Sigma.initialized) {
 	    	EventGetChat c = new EventGetChat(message);
 	    	c.setType(EventType.PRE);
 	    	Sigma.getEvent().onEvent(c);

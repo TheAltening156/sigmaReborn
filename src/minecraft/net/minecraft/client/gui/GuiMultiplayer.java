@@ -32,7 +32,7 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
     private boolean addingServer;
     private boolean editingServer;
     private boolean directConnect;
-
+    private AsyncVersionSlider a;
     /**
      * The text to be displayed when the player's cursor hovers over a server listing.
      */
@@ -95,7 +95,12 @@ public class GuiMultiplayer extends GuiScreen implements GuiYesNoCallback
 
     public void createButtons()
     {
-    	this.buttonList.add(ViaMCP.getInstance().asyncSlider = new AsyncVersionSlider(-1, width / 2 + 43, 10, Math.max(10, 118), 20));
+    	if (ViaMCP.getInstance().asyncSlider == null) {
+    		ViaMCP.getInstance().asyncSlider = new AsyncVersionSlider(-1, width / 2 + 43, 10, Math.max(10, 118), 20);
+    	} else {
+    		a = ViaMCP.getInstance().asyncSlider;
+    	}
+    	this.buttonList.add(a);
         this.buttonList.add(this.btnEditServer = new GuiButton(7, this.width / 2 - 154, this.height - 28, 70, 20, I18n.format("selectServer.edit", new Object[0])));
         this.buttonList.add(this.btnDeleteServer = new GuiButton(2, this.width / 2 - 74, this.height - 28, 70, 20, I18n.format("selectServer.delete", new Object[0])));
         this.buttonList.add(this.btnSelectServer = new GuiButton(1, this.width / 2 - 154, this.height - 52, 100, 20, I18n.format("selectServer.select", new Object[0])));

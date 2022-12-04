@@ -195,17 +195,18 @@ public class Switcher extends GuiScreen{
 	
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if (x) {
-			mc.displayGuiScreen(new GuiMainMenu());
-			Display.setTitle("Sigma - Remake | Minecraft 1.8.8");
+		if (!Sigma.initialized) {
+			if (x) {
+				mc.displayGuiScreen(new GuiMainMenu());
+				Display.setTitle("Sigma - Remake | Minecraft 1.8.8");
+			}
+			if (x1) {
+				Sigma.initNormal();
+			}
+			if (x2) {
+				Sigma.initJello();
+			}
 		}
-		if (x1) {
-			Sigma.initNormal();
-		}
-		if (x2) {
-			Sigma.initJello();
-		}
-		
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 	

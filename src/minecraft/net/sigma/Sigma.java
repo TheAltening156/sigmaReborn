@@ -22,7 +22,7 @@ public class Sigma {
 	public static Animations anims;
 	public static Clickgui clickgui;
 	public static HUD hud;
-	public static boolean initailised;
+	public static boolean initialized;
 	
 	public static void start() {
 		mc.gameSettings.showInventoryAchievementHint = false;
@@ -37,7 +37,7 @@ public class Sigma {
 		{
 			e.printStackTrace();
 		}
-		initailised = false;
+		initialized = false;
 		
 	}
 	
@@ -47,7 +47,7 @@ public class Sigma {
 		mod = new ModuleManager();
 		mc.displayGuiScreen(new ClassicMainMenu());
 		
-		initailised = true;
+		initialized = true;
 	}
 	
 	public static void initJello() {
@@ -56,7 +56,7 @@ public class Sigma {
 		mod = new ModuleManager();
 		mc.displayGuiScreen(new JelloMainMenu());
 		
-		initailised = true;
+		initialized = true;
 	}
 
 	public static Event getEvent() {

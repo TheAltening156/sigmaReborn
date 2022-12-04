@@ -48,7 +48,7 @@ public class DrawUtils extends GuiScreen{
 		GlStateManager.enableAlpha();
     }
 	
-	public static void drawShadowImage(final int x, final int y, final int width, final int height, final ResourceLocation image) {
+	public static void drawShadowImage(final double x, final double y, final double width, final double height, final ResourceLocation image) {
 		GlStateManager.enableBlend();
 		GlStateManager.disableAlpha();
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -94,5 +94,56 @@ public class DrawUtils extends GuiScreen{
         GL11.glDepthMask(true);
         GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
+	}
+	
+	public static void drawBorderedRoundedRect(float var0, float var1, float var2, float var3, float var4, int var5, int var6) {
+		drawRoundedRect((double)var0, (double)var1, (double)var2, (double)var3, (double)var4, var5);
+		drawRoundedRect((double)(var0 + 0.5F), (double)(var1 + 0.5F), (double)(var2 - 0.5F), (double)(var3 - 0.5F), (double)var4, var6);
+	}
+
+	public static void drawBorderedRoundedRect(float var0, float var1, float var2, float var3, float var4, float var5, int var6, int var7) {
+		drawRoundedRect((double)var0, (double)var1, (double)var2, (double)var3, (double)var4, var6);
+		drawRoundedRect((double)(var0 + var5), (double)(var1 + var5), (double)(var2 - var5), (double)(var3 - var5), (double)var4, var7);
+	}
+
+	
+	public static void drawRoundedRect(double x, double y, double x1, double y1, double round, int color) {
+		GL11.glPushAttrib(0);
+		GL11.glScaled(0.5D, 0.5D, 0.5D);
+		x *= 2.0D;
+		y *= 2.0D;
+		x1 *= 2.0D;
+		y1 *= 2.0D;
+		GL11.glEnable(3042);
+		GL11.glDisable(3553);
+		setColor(color);
+		GL11.glEnable(2848);
+		GL11.glBegin(9);
+
+		int var11;
+		for(var11 = 0; var11 <= 90; var11 += 3) {
+			GL11.glVertex2d(x + round + Math.sin((double)var11 * Math.PI / 180.0D) * round * -1.0D, y + round + Math.cos((double)var11 * Math.PI / 180.0D) * round * -1.0D);
+		}
+
+		for(var11 = 90; var11 <= 180; var11 += 3) {
+			GL11.glVertex2d(x + round + Math.sin((double)var11 * Math.PI / 180.0D) * round * -1.0D, y1 - round + Math.cos((double)var11 * Math.PI / 180.0D) * round * -1.0D);
+		}
+
+		for(var11 = 0; var11 <= 90; var11 += 3) {
+			GL11.glVertex2d(x1 - round + Math.sin((double)var11 * Math.PI / 180.0D) * round, y1 - round + Math.cos((double)var11 * Math.PI / 180.0D) * round);
+		}
+
+		for(var11 = 90; var11 <= 180; var11 += 3) {
+			GL11.glVertex2d(x1 - round + Math.sin((double)var11 * Math.PI / 180.0D) * round, y + round + Math.cos((double)var11 * Math.PI / 180.0D) * round);
+		}
+
+		GL11.glEnd();
+		GL11.glEnable(3553);
+		GL11.glDisable(3042);
+		GL11.glDisable(2848);
+		GL11.glDisable(3042);
+		GL11.glEnable(3553);
+		GL11.glScaled(2.0D, 2.0D, 2.0D);
+		GL11.glPopAttrib();
 	}
 }

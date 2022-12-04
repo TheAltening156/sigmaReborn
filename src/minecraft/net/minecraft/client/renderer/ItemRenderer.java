@@ -361,7 +361,7 @@ public class ItemRenderer
                         break;
 
                     case 4:
-                    	if(Sigma.initailised) {
+                    	if(Sigma.initialized) {
 	                    	if (Sigma.anims.isToggled()) {
 	                    		this.transformFirstPersonItem(0.0F, f1);
 	                    	} else {

@@ -17,11 +17,12 @@ import net.sigma.utils.MoveUtils;
 public class Fly extends Module{
 	public ModeSettings mode = new ModeSettings("Type", "Fly mode", "Vanilla", this, "Vanilla", "MinelandPrisonSemiInf");
 	public NumberSettings speed = new NumberSettings("Speed", "Fly Speed", 0.5, 0.1, 9.5, this);
+	public NumberSettings boob = new NumberSettings("BoobSpeed", "Change Boobing value", 1, 0, 1, this);
 	public BooleanSettings updown = new BooleanSettings("Up Down", "Let you go up or down", true, this);
 	
 	public Fly() {
 		super("Fly", "Allows you to fly like a bird", Keyboard.KEY_F, Cat.MOVEMENT);
-		this.addSettings(speed, mode, updown);
+		this.addSettings(speed, mode, updown, boob);
 	}
 	
 	@Override
@@ -44,47 +45,21 @@ public class Fly extends Module{
 		}
 		if (mode.is("MinelandPrisonSemiInf")) {
 			if (!((mc.thePlayer.ticksExisted % 15) == 0)) {
-				/*mc.thePlayer.motionX=0;
-				mc.thePlayer.motionZ = 0;
-				MoveUtils.strafe(0);
-				mc.thePlayer.jumpMovementFactor = 0;//0.02f;*/
 				double val = 1.2E-7D;
 				if (mc.thePlayer.ticksExisted % 2 == 0) {
 					val = -val;
 					
 					mc.thePlayer.setPosition(mc.thePlayer.posX, mc.thePlayer.posY + -val, mc.thePlayer.posZ);
 
-					MoveUtils.strafe(0.30);//0.20
+					MoveUtils.strafe(0.30);
 
 				}
 				mc.thePlayer.motionY = 0;
 			}
 		}
-		if (mode.is("TEST")) {
-			if (!((mc.thePlayer.ticksExisted % 35) == 0)) {
-				mc.thePlayer.motionX=0;
-				mc.thePlayer.motionZ = 0;
-				MoveUtils.strafe(0);
-				mc.thePlayer.jumpMovementFactor = 0;//0.02f;
-				double val = 1.2E-7D;
-				if (mc.thePlayer.ticksExisted % 2 == 0) {
-					val = -val;
-				}
-				if (mc.thePlayer.ticksExisted % 2 == 0) {
-					mc.thePlayer.setPosition(mc.thePlayer.posX, mc.thePlayer.posY + val, mc.thePlayer.posZ);
-	
-					MoveUtils.strafe(0.30);
-	
-				}
-				mc.thePlayer.motionY = 0;
-			} else {
-				mc.thePlayer.motionX = 0;
-				mc.thePlayer.posY = -1.2E-7D;
-				mc.thePlayer.motionZ = 0;
-			}
+		if (e.isPost()) {
+			mc.thePlayer.cameraYaw = boob.getFloatValue() / 10;
 		}
 	}
-	
-	
 	
 }

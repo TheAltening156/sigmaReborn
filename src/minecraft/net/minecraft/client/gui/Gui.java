@@ -264,4 +264,12 @@ public class Gui
         worldrenderer.pos((double)x, (double)y, 0.0D).tex((double)(u * f), (double)(v * f1)).endVertex();
         tessellator.draw();
     }
+    
+    public boolean isHovered(double x, double y, double x1, double y1, int mouseX, int mouseY) {
+		return mouseX >= x && mouseY >= y && mouseX <= x1 && mouseY <= y1; 
+	}
+
+	public boolean isHovered(int x, int y, int x1, int y1, int mouseX, int mouseY) {
+		return mouseX >= x && mouseY >= y && mouseX <= x1 && mouseY <= y1; 
+	}
 }

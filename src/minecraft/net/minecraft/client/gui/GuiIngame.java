@@ -6,7 +6,10 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
+
+import org.lwjgl.opengl.Display;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -45,8 +48,8 @@ import net.minecraft.util.StringUtils;
 import net.minecraft.world.border.WorldBorder;
 import net.sigma.Sigma;
 import net.sigma.event.events.EventIngameGui;
+import net.sigma.module.Module;
 import net.sigma.module.ModuleManager;
-import net.sigma.module.modules.HUD.Sort;
 import optifine.Config;
 import optifine.CustomColors;
 
@@ -359,11 +362,28 @@ public class GuiIngame extends Gui
             this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
         }
 
-		Collections.sort(ModuleManager.mods, new Sort());
+        if (Sigma.initialized && Display.getTitle().contains("Sigma Jello - Remake")) {
+        	Collections.sort(ModuleManager.mods, new Sort());
+        } else if (Sigma.initialized && Display.getTitle().contains("Classic Sigma - Remake")){
+        	
+        }
         
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
         GlStateManager.enableAlpha();
+    }
+    
+    class Sort implements Comparator<Module>{
+    	
+		@Override
+		public int compare(Module o, Module o1) {
+			if (Sigma.hud.fr1.getWidth(o.getName()) < Sigma.hud.fr1.getWidth(o1.getName())) {
+				return 1;
+			} else if (Sigma.hud.fr1.getWidth(o.getName()) > Sigma.hud.fr1.getWidth(o1.getName())){
+				return -1;
+			}
+			return 0;
+		}
     }
 
     protected void renderTooltip(ScaledResolution sr, float partialTicks)
