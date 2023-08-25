@@ -47,7 +47,7 @@ public class ClassicMainMenu extends GuiScreen {
 		this.drawModalRectWithCustomSizedTexture(-10 + animatedMouseX / 125f, -4 + animatedMouseY / 90f, 0.0f, 0.0f, this.width * 1.008f + 10, this.height * 1.009f + 4, this.width * 1.008f + 10, this.height * 1.009 + 4);
 		GlStateManager.bindTexture(0);
 		GlStateManager.pushMatrix();
-		GlStateManager.translate(-10 + animatedMouseX / 40f, -4 + animatedMouseY / 50f, 0);
+		//GlStateManager.translate(-10 + animatedMouseX / 40f, -4 + animatedMouseY / 50f, 0);
 		double x = this.width / 2 - 113.5;
 		double y = this.height / 2 - 47;
 		DrawUtils.drawImage(this.width / 2 - 68, this.height / 2 - 110, 150, 48.75, new ResourceLocation("Sigma/mainmenu/classic/big.png"));

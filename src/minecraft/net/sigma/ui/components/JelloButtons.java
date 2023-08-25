@@ -46,7 +46,7 @@ public class JelloButtons extends GuiButton{
 			GlStateManager.disableAlpha();
 			GlStateManager.color(xd ? 0.9f : 1.0f, xd ? 0.9f : 1.0f, xd ? 0.9f : 1.0f, 1.0f);
 			Minecraft.getMinecraft().getTextureManager().bindTexture(icon);
-		    //GL11.glTexParameteri(3553, 10240, 9729);
+		    GL11.glTexParameteri(3553, 10240, 9729);
 		    GL11.glTexParameteri(3553, 10241, 9729);
 		    double vall = val/13;
 		    double xx = -vall /2;

@@ -15,7 +15,6 @@ public class AutoRespawn extends Module{
 	@Override
 	public void onUpdate(EventUpdate e) {
 		mc.thePlayer.respawnPlayer();
-		
 	}
 	
 }
