@@ -118,7 +118,6 @@ public class DrawUtils extends GuiScreen{
 		glDisable(GL_TEXTURE_2D);
 		setColor(color);
 		glEnable(GL_BLEND);
-		glEnable(GL_LINE_SMOOTH);
 		glBegin(GL_POLYGON);
 		int i=1;
 		for(i = 0; i <= 90; i ++) {
@@ -142,7 +141,6 @@ public class DrawUtils extends GuiScreen{
 					       y + round + Math.cos(ii) * round);
 		}
 		glEnd();
-		glDisable(GL_LINE_SMOOTH);
 		glDisable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);
 		glScaled(2D, 2D, 2D);

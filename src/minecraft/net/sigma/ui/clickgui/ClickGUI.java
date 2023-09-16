@@ -116,9 +116,8 @@ public class ClickGUI extends GuiScreen {
 			}
 		}
 		if (this.showSettings) {
-			Gui.drawRect(0, 0, width, height, new Color(0,0,0,120).getRGB());
+			Gui.drawRect(0, 0, width, height, new Color(0,0,0,128).getRGB());
 			Gui.drawRect(this.width / 2 - 125, this.height / 2 - 150, this.width / 2 + 125, this.height / 2 + 150, -1);
-			
 		}
 			
 		int settsX = width / 2 - 110;
@@ -131,7 +130,7 @@ public class ClickGUI extends GuiScreen {
 						ModeSettings lmfao = (ModeSettings) s;
 						if (lmfao.isShown) {
 							for (String i : lmfao.modess) {
-								//settsY += 14;
+								settsY += 14;
 							}
 						}
 					}
