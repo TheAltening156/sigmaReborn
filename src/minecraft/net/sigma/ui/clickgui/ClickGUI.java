@@ -77,7 +77,6 @@ public class ClickGUI extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		ScaledResolution sr = new ScaledResolution(mc);
 		for (Cat c : Cat.values()) {
 			DrawUtils.drawImage(c.posX - 11.5, c.posY - 11.5, 122, c.showMods ? 183 : 54, new ResourceLocation("Sigma/" + (c.showMods ? "c" : "c1") + ".png"));
 		}
@@ -117,13 +116,13 @@ public class ClickGUI extends GuiScreen {
 			}
 		}
 		if (this.showSettings) {
-			Gui.drawRect(0, 0, sr.getScaledWidth(), sr.getScaledHeight(), new Color(0,0,0,120).getRGB());
+			Gui.drawRect(0, 0, width, height, new Color(0,0,0,120).getRGB());
 			Gui.drawRect(this.width / 2 - 125, this.height / 2 - 150, this.width / 2 + 125, this.height / 2 + 150, -1);
 			
 		}
 			
-		int settsX = sr.getScaledWidth() / 2 - 110;
-		int settsY = sr.getScaledHeight() / 2 - 110;
+		int settsX = width / 2 - 110;
+		int settsY = height / 2 - 110;
 		int settsWidth = this.width / 2 + 100;
 		for (Module m : ModuleManager.mods) {
 			for (Settings s : m.settings) {
@@ -131,13 +130,8 @@ public class ClickGUI extends GuiScreen {
 					if (s instanceof ModeSettings) {
 						ModeSettings lmfao = (ModeSettings) s;
 						if (lmfao.isShown) {
-							byte b;
-							int i;
-							String[] string11;
-							for (i = (string11 = lmfao.modess).length, b = 0; b < i;) {
-								String string1 = string11[b];
-								settsY += 14;
-								b++;
+							for (String i : lmfao.modess) {
+								//settsY += 14;
 							}
 						}
 					}
@@ -147,14 +141,14 @@ public class ClickGUI extends GuiScreen {
 						double max = num.getMax();
 						double diff = (max - min);
 						double rdrWidth = 61 * ((num.getVar() - min) / diff);
-						DrawUtils.drawShadowImage(settsX + rdrWidth + 128, settsY - 12, 42, 34, new ResourceLocation("Sigma/shadow.png"));
+						DrawUtils.drawShadowImage(settsX + rdrWidth + 128, settsY - 12, 42, 34, new ResourceLocation("Sigma/shadow1.png"));
 					}
 					settsY += 18;
 				}
 			}
 		}
-		settsX = sr.getScaledWidth() / 2 - 110;
-		settsY = sr.getScaledHeight() / 2 - 110;
+		settsX = width / 2 - 110;
+		settsY = height / 2 - 110;
 		settsWidth = this.width / 2 + 100;
 		//int settsHeight = this.height / 2 + 150;
 		for (Module m : ModuleManager.mods) {
@@ -175,17 +169,12 @@ public class ClickGUI extends GuiScreen {
 						fr.drawString(lmfao.isShown ? "<" : ">", (int) (settsWidth - fr.getWidth(">")), settsY, isHovered(settsWidth - 60, settsY, settsWidth, settsY + 13, mouseX, mouseY) || lmfao.isShown ? new Color(55, 55, 55).getRGB() : new Color(145, 145, 145).getRGB());
 						fr.drawString(s.getVar().toString(), settsWidth - 60, settsY, new Color(55, 55, 55).getRGB());
 						if (lmfao.isShown) {
-							byte b;
-							int i;
-							String[] string11;
-							for (i = (string11 = lmfao.modess).length, b = 0; b < i;) {
-								String string1 = string11[b];
+							for (String ss : lmfao.modess) {
 								if (isHovered(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, mouseX, mouseY)) {
 									drawRect(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, new Color(0, 0, 0, 35).getRGB());
 								}
-								fr.drawString(string1, settsWidth - 60, settsY + 15, 1);
+								fr.drawString(ss, settsWidth - 60, settsY + 15, 1);
 								settsY += 14;
-								b++;
 							}
 						}
 					}
@@ -197,8 +186,6 @@ public class ClickGUI extends GuiScreen {
 						double rdrWidth = 61 * ((num.getVar() - min) / diff);
 						DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth, settsY + 6, 4, new Color(213, 229, 248).getRGB());
 						DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth - 60 + rdrWidth, settsY + 6, 4, new Color(37, 146, 237).getRGB());
-						DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
-						DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
 						DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
 						double mouseSnap = mouseX;
                         mouseSnap = Math.max((settsWidth - 60), mouseSnap);

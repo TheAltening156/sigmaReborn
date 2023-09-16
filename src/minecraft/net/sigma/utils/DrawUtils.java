@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
+import static org.lwjgl.opengl.GL11.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -109,82 +110,58 @@ public class DrawUtils extends GuiScreen{
 
 	
 	public static void drawRoundedRect(double x, double y, double x1, double y1, double round, int color) {
-		GL11.glPushAttrib(0);
-		GL11.glScaled(0.5D, 0.5D, 0.5D);
-		x *= 2.0D;
-		y *= 2.0D;
-		x1 *= 2.0D;
-		y1 *= 2.0D;
-		GL11.glEnable(3042);
-		GL11.glDisable(3553);
+		glScaled(0.5D, 0.5D, 0.5D);
+		x *= 2D;
+		y *= 2D;
+		x1 *= 2D;
+		y1 *= 2D;
+		glDisable(GL_TEXTURE_2D);
 		setColor(color);
-		GL11.glEnable(2848);
-		GL11.glBegin(9);
-
-		int var11;
-		for(var11 = 0; var11 <= 90; var11 += 3) {
-			GL11.glVertex2d(x + round + Math.sin((double)var11 * Math.PI / 180.0D) * round * -1.0D, y + round + Math.cos((double)var11 * Math.PI / 180.0D) * round * -1.0D);
+		glEnable(GL_BLEND);
+		glEnable(GL_LINE_SMOOTH);
+		glBegin(GL_POLYGON);
+		int i=1;
+		for(i = 0; i <= 90; i ++) {
+			double ii = (i * Math.PI) / 180D;
+			glVertex2d(    x + round + Math.sin(ii) * round * -1D,
+					       y + round + Math.cos(ii) * round * -1D);
 		}
-
-		for(var11 = 90; var11 <= 180; var11 += 3) {
-			GL11.glVertex2d(x + round + Math.sin((double)var11 * Math.PI / 180.0D) * round * -1.0D, y1 - round + Math.cos((double)var11 * Math.PI / 180.0D) * round * -1.0D);
+		for(i = 90; i <= 180; i++) {
+			double ii = (i * Math.PI) / 180D;
+			glVertex2d(    x + round + Math.sin(ii) * round * -1D,
+						  y1 - round + Math.cos(ii) * round * -1D);
 		}
-
-		for(var11 = 0; var11 <= 90; var11 += 3) {
-			GL11.glVertex2d(x1 - round + Math.sin((double)var11 * Math.PI / 180.0D) * round, y1 - round + Math.cos((double)var11 * Math.PI / 180.0D) * round);
+		for(i = 0; i <= 90; i++) {
+			double ii = (i * Math.PI) / 180D;
+			   glVertex2d(x1 - round + Math.sin(ii) * round,
+					      y1 - round + Math.cos(ii) * round);
+		} 
+		for(i = 90; i <= 180; i++) {
+			double ii = (i * Math.PI) / 180D;
+			   glVertex2d(x1 - round + Math.sin(ii) * round,
+					       y + round + Math.cos(ii) * round);
 		}
-
-		for(var11 = 90; var11 <= 180; var11 += 3) {
-			GL11.glVertex2d(x1 - round + Math.sin((double)var11 * Math.PI / 180.0D) * round, y + round + Math.cos((double)var11 * Math.PI / 180.0D) * round);
-		}
-
-		GL11.glEnd();
-		GL11.glEnable(3553);
-		GL11.glDisable(3042);
-		GL11.glDisable(2848);
-		GL11.glDisable(3042);
-		GL11.glEnable(3553);
-		GL11.glScaled(2.0D, 2.0D, 2.0D);
-		GL11.glPopAttrib();
+		glEnd();
+		glDisable(GL_LINE_SMOOTH);
+		glDisable(GL_BLEND);
+		glEnable(GL_TEXTURE_2D);
+		glScaled(2D, 2D, 2D);
 	}
 
 	public static void drawCircle(double x, double y, double offset, int color) {
-		GL11.glEnable(GL13.GL_MULTISAMPLE);
-    	GL11.glEnable(GL11.GL_POLYGON_SMOOTH);
-        boolean blend = GL11.glIsEnabled((int) 3042);
-        boolean line = GL11.glIsEnabled((int) 2848);
-        boolean texture = GL11.glIsEnabled((int) 3553);
-        if (!blend) {
-            GL11.glEnable((int) 3042);
-        }
-        if (!line) {
-            GL11.glEnable((int) 2848);
-        }
-        if (texture) {
-            GL11.glDisable((int) 3553);
-        }
-        GL11.glBlendFunc((int) 770, (int) 771);
-        setColor(color);
-
-        GL11.glBegin((int) 9);
-        int i = 0;
-        while (i <= 360) {
-            GL11.glVertex2d(
-                    (double) ((double) x + Math.sin((double) ((double) i * 3.141526 / 180.0)) * (double) offset),
-                    (double) ((double) y + Math.cos((double) ((double) i * 3.141526 / 180.0)) * (double) offset));
-            ++i;
-        }
-        GL11.glEnd();
-        if (texture) {
-            GL11.glEnable((int) 3553);
-        }
-        if (!line) {
-            GL11.glDisable((int) 2848);
-        }
-        if (!blend) {
-            GL11.glDisable((int) 3042);
-        }
-        GL11.glDisable(GL11.GL_POLYGON_SMOOTH);
-        GL11.glClear(0);
+		glDisable(GL_TEXTURE_2D);
+		setColor(color);
+		glEnable(GL_BLEND);
+		glEnable(GL_POLYGON_SMOOTH);
+		glBegin(GL_POLYGON);
+		for (int iiiiiiiiiii : new int[4])
+		for (int i = 0; i <= 360; i++) {
+				glVertex2d(x + Math.sin((i * Math.PI) / 180.0D) * offset,
+						   y + Math.cos((i * Math.PI) / 180.0D) * offset);
+		}
+		glEnd();
+		glDisable(GL_BLEND);
+		glDisable(GL_POLYGON_SMOOTH);
+		glEnable(GL_TEXTURE_2D);
 	}
 }
