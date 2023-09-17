@@ -8,8 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import net.sigma.ui.FontManager;
-import net.sigma.ui.TTFFontRenderer;
+import net.sigma.ui.font.FontManager;
+import net.sigma.ui.font.TTFFontRenderer;
 
 public class ClassicButtons extends GuiButton {
 	private ResourceLocation icon;

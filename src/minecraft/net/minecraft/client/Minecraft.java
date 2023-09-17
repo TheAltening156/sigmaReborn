@@ -171,7 +171,6 @@ import net.minecraft.world.storage.WorldInfo;
 import net.sigma.Sigma;
 import net.sigma.module.Module;
 import net.sigma.module.ModuleManager;
-import net.sigma.ui.Switcher;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.Validate;
@@ -1208,10 +1207,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         Display.update();
         this.mcProfiler.endSection();
         this.checkWindowResize();
-        
-       /* if (this.currentScreen instanceof Switcher) {
-    		Switcher.onTick();
-    	}*/
     }
 
     protected void checkWindowResize()

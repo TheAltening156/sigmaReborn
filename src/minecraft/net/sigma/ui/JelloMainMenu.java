@@ -20,12 +20,14 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 import net.sigma.Sigma;
 import net.sigma.ui.components.JelloButtons;
+import net.sigma.ui.font.FontManager;
+import net.sigma.ui.font.TTFFontRenderer;
 import net.sigma.utils.DrawUtils;
 import viamcp.ViaMCP;
 
 public class JelloMainMenu extends GuiScreen {
-	private TTFFontRenderer bigfr = FontManager.getFontQuality("JelloLight1", 10);
-	public static TTFFontRenderer sigmaJello = FontManager.getFontQuality("jellolight2", 1.1f);
+	private TTFFontRenderer bigfr;
+	public static TTFFontRenderer sigmaJello;
 	private float animatedMouseX;
 	private float animatedMouseY;
 	private boolean hovered;	
@@ -40,6 +42,10 @@ public class JelloMainMenu extends GuiScreen {
 		buttonList.add(new JelloButtons(2, x + 122, y, "Connect"));
 		buttonList.add(new JelloButtons(3, x + 183, y, "Settings"));
 		buttonList.add(new JelloButtons(4, x + 244, y, "AltManager"));
+		if (sigmaJello == null) {
+			bigfr = FontManager.getFontQuality("JelloLight1", 10);
+			sigmaJello = FontManager.getFontQuality("jellolight2", 1.1f);
+		}
 		super.initGui();
 	}
 	
@@ -53,17 +59,16 @@ public class JelloMainMenu extends GuiScreen {
 		mc.getTextureManager().bindTexture(new ResourceLocation("Sigma/jellomenu.png"));
 		this.drawModalRectWithCustomSizedTexture(-animatedMouseX / 1.43f,  -animatedMouseY / 10.15f, 0.0f, 0.0f, this.width * 1.7, this.height * 1.1, this.width * 1.7, this.height* 1.1);
 		
-		DrawUtils.drawShadowImage(this.width / 2 - 75, this.height / 2 - 90, 190, 90, new ResourceLocation("Sigma/shadow.png"));
+		DrawUtils.drawShadowImage(this.width / 2 - 115, this.height / 2 - 90, 235, 90, new ResourceLocation("Sigma/shadow.png"));
 		
-		bigfr.drawCenteredStringScaled("Jello", this.width / 2 - 5, this.height / 2 - 93, -1, 10f);
+		//bigfr.drawStringScaled("Jello", this.width / 2 + 5, this.height / 2 - 55, -1, 10f);
 				
 		DrawUtils.drawShadowImage(1, this.height - 14, sigmaJello.getWidth("\u00a9 Sigma Reborn") + 25, 9, new ResourceLocation("Sigma/arraylistshadow.png"));
 		sigmaJello.drawStringScaled("\u00a9 Sigma Reborn", 4, this.height - 16, -1, 1.1f);
-		String namemdr = "Jello for Sigma " + Sigma.version + " - 1.7.x - 1.19.x";
-		sigmaJello.drawStringScaled(namemdr, width - sigmaJello.getWidth(namemdr) - 16, this.height - 16, -1, 1.1f);
+		String namem = "Jello for Sigma " + Sigma.version + " - 1.7.x - 1.19.x";
+		sigmaJello.drawStringScaled(namem, width - sigmaJello.getWidth(namem) + 69, this.height - 16, -1, 1.1f);
 		
-		for (Object o : this.buttonList) {
-			GuiButton b = (GuiButton) o;
+		for (GuiButton b : this.buttonList) {
 			if (b instanceof JelloButtons) {
 				((JelloButtons) b).drawButton(mc, mouseX, mouseY);
 				((JelloButtons) b).drawName();

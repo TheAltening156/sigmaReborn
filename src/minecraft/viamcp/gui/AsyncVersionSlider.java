@@ -5,7 +5,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.MathHelper;
-import net.sigma.ui.FontManager;
+import net.sigma.ui.font.FontManager;
 import viamcp.ViaMCP;
 import viamcp.protocols.ProtocolCollection;
 

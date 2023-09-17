@@ -13,19 +13,21 @@ import net.sigma.event.events.EventIngameGui;
 import net.sigma.module.Cat;
 import net.sigma.module.Module;
 import net.sigma.module.ModuleManager;
-import net.sigma.ui.FontManager;
-import net.sigma.ui.TTFFontRenderer;
+import net.sigma.ui.font.FontManager;
+import net.sigma.ui.font.TTFFontRenderer;
 import net.sigma.utils.DrawUtils;
 
 public class HUD extends Module{
-	public TTFFontRenderer fr = FontManager.jelloLight;
-	public TTFFontRenderer fr1 = FontManager.getFontQuality("jellolight", 1.1f);
-	public static TTFFontRenderer bigfr = FontManager.getFontQuality("jellolight2", 3.3f);
+	public TTFFontRenderer fr;
+	public TTFFontRenderer fr1;
+	public static TTFFontRenderer bigfr;
 	public static GuiOverlayDebug xddd = new GuiOverlayDebug(Minecraft.getMinecraft());
 	
 	public HUD() {
 		super("ActiveMods", "Show Activated Modules", Cat.RENDER);
-		
+		fr = FontManager.jelloLight;
+		fr1 = FontManager.getFontQuality("jellolight", 1.1f);
+		bigfr = FontManager.getFontQuality("jellolight2", 3.3f);
 	}
 	
 	@Override
@@ -38,56 +40,23 @@ public class HUD extends Module{
 		ScaledResolution sr = new ScaledResolution(mc);
 		List list = xddd.getDebugInfoRight();
 		List list1 = xddd.call();
-		float sigmaY = 4;
-		float sigmaX = 8;
-		
+		float sigmaX;
+		float sigmaY = 5;
 		float modY = 2;
-		if (mc.gameSettings.showDebugInfo) {
-			sigmaX = sr.getScaledWidth() / 2;
-			for (float i = 0; i < list.size(); ++i)
-	        {
-				float j = fr.getHeight();
-				float i1 = 2 + j * i;
-				modY = i1 + 10;
-	        }
-		}
+		sigmaX =mc.gameSettings.showDebugInfo ? sr.getScaledWidth() / 2 : 45;
 		
-		if (!mc.gameSettings.showDebugInfo) 
-		DrawUtils.drawShadowImage((float) (sigmaX - 12 - fr.getWidth("Sigma") / 2) - 8, sigmaY - 8, 123, 50, new ResourceLocation("Sigma/arraylistshadow.png"));
-		else
-		DrawUtils.drawShadowImage((float) (sigmaX - 12 - fr.getWidth("Sigma") / 2) - 35, sigmaY - 8, 123, 50, new ResourceLocation("Sigma/arraylistshadow.png"));
+		for (float i = 0; i < list.size(); ++i) {
+			float i1 = 2 + fr.getHeight() * i;
+			modY = mc.gameSettings.showDebugInfo ? i1 + 13 : 5;
+        }
+		DrawUtils.drawShadowImage((float) (sigmaX - 12 - fr.getWidth("Sigma") / 2) - (!mc.gameSettings.showDebugInfo ? 35 : 28), sigmaY - 10, 123, 50, new ResourceLocation("Sigma/arraylistshadow.png"));
 
+		bigfr.drawCenteredString("Sigma", sigmaX + (!mc.gameSettings.showDebugInfo ? 4 : 0), sigmaY + 10, new Color(255, 255, 255, 130).getRGB());
+		FontManager.jelloMedium.drawCenteredString("Jello", sigmaX - (!mc.gameSettings.showDebugInfo ? 28 : 31), sigmaY + 28, new Color(255, 255, 255, 170).getRGB());
+		
 		for (Module m : ModuleManager.getToggledModules()) {
 			DrawUtils.drawShadowImage((float) (sr.getScaledWidth() - fr1.getWidth(m.getName()) - 14), modY - 5, 67, (float) fr1.getHeight(m.getName()) + 14, new ResourceLocation("Sigma/arraylistshadow.png"));
-			modY+=13;
-		}
-		if (!mc.gameSettings.showDebugInfo) {
-			bigfr.drawStringScaled("Sigma", sigmaX, sigmaY - 1, new Color(255, 255, 255, 130).getRGB(), 3.3f);
-			FontManager.jelloMedium.drawCenteredString("Jello", sigmaX + 10, sigmaY + 28, new Color(255, 255, 255, 170).getRGB());
-
-		} else { 
-			bigfr.drawCenteredStringScaled("Sigma", sigmaX, sigmaY + 3, new Color(255, 255, 255, 130).getRGB(), 3.3f);
-			FontManager.jelloMedium.drawString("Jello", sigmaX - 35, sigmaY + 28, new Color(255, 255, 255, 170).getRGB());
-		}
-
-		modY = 2;
-		if (mc.gameSettings.showDebugInfo) {
-			 for (float i = 0; i < list1.size(); ++i)
-		        {
-				 float j = fr.getHeight();
-				 float l = 2 + j * i;
-	                sigmaY = l + 10;
-	            }
-		        
-			for (float i = 0; i < list.size(); ++i)
-	        {
-			float j = fr.getHeight();
-			float i1 = 2 + j * i;
-				modY = i1 + 10;
-	        }
-		}
-		for (Module m : ModuleManager.getToggledModules()) {
-			fr1.drawStringScaled(m.getName(), sr.getScaledWidth() - fr1.getWidth(m.getName()) - 8, modY, -1, 1.1f);
+			fr1.drawString(m.getName(), sr.getScaledWidth() - fr1.getWidth(m.getName()) - 8, modY, -1);
 			modY += 13;
 		}
 		

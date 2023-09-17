@@ -9,8 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import net.sigma.ui.FontManager;
-import net.sigma.ui.TTFFontRenderer;
+import net.sigma.ui.font.FontManager;
+import net.sigma.ui.font.TTFFontRenderer;
 import net.sigma.utils.DrawUtils;
 
 public class JelloButtons extends GuiButton{
@@ -18,11 +18,12 @@ public class JelloButtons extends GuiButton{
 	private boolean movingUp;
 	private int index;
 	private ResourceLocation icon;
-	private TTFFontRenderer fr = FontManager.getFontQuality("jellolight", 1.4f);
+	private TTFFontRenderer fr;
 	public float val = 1;
 	
 	public JelloButtons(int buttonId, int x, int y, String buttonText) {
 		super(buttonId, x, y, 64, 64, buttonText);
+		if (fr == null)fr = FontManager.getFontQuality("jellolight", 1.4f);
 		icon = new ResourceLocation("Sigma/mainmenu/" + buttonText + ".png");
 		this.name = buttonText;
 		val = 1;
@@ -61,9 +62,9 @@ public class JelloButtons extends GuiButton{
 		}
 	}
 	public void drawName() {
-		if (hovered)
-		DrawUtils.drawShadowImage(xPosition - 22, yPosition + 60, fr.getWidth(name) + 75, 17, new ResourceLocation("Sigma/shadow.png"));
-		fr.drawCenteredStringScaled(name, xPosition + 31, yPosition + 60, new Color(255, 255, 255, (int)val).getRGB(),0.5f + val/180);
-
+		if (hovered) 
+			DrawUtils.drawShadowImage(xPosition - 30, yPosition + 60, fr.getWidth(name) + 75, 16, new ResourceLocation("Sigma/shadow.png"));
+		fr.drawStringScaled(name, xPosition + 32, yPosition + 66, new Color(255, 255, 255, (int)val).getRGB(),0.5f + val/180);
+		
 	}
 }

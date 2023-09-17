@@ -5,7 +5,7 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import net.sigma.ui.FontManager;
+import net.sigma.ui.font.FontManager;
 
 public class GuiButton extends Gui
 {

@@ -57,7 +57,6 @@ import net.sigma.Sigma;
 import net.sigma.event.EventType;
 import net.sigma.event.events.EventGetChat;
 import net.sigma.event.events.EventUpdate;
-import net.sigma.ui.Switcher;
 import net.sigma.ui.clickgui.ClickGUI;
 
 public class EntityPlayerSP extends AbstractClientPlayer

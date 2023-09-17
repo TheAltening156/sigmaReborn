@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.function.ToIntFunction;
 
 import org.lwjgl.opengl.Display;
 
@@ -50,6 +51,8 @@ import net.sigma.Sigma;
 import net.sigma.event.events.EventIngameGui;
 import net.sigma.module.Module;
 import net.sigma.module.ModuleManager;
+import net.sigma.ui.font.FontManager;
+import net.sigma.ui.font.TTFFontRenderer;
 import optifine.Config;
 import optifine.CustomColors;
 
@@ -363,7 +366,7 @@ public class GuiIngame extends Gui
         }
 
         if (Sigma.initialized && Display.getTitle().contains("Sigma Jello - Remake")) {
-        	Collections.sort(ModuleManager.mods, new Sort());
+        	Collections.sort(ModuleManager.mods, Comparator.comparingInt(new Comparators()).reversed());
         } else if (Sigma.initialized && Display.getTitle().contains("Classic Sigma - Remake")){
         	
         }
@@ -373,19 +376,14 @@ public class GuiIngame extends Gui
         GlStateManager.enableAlpha();
     }
     
-    class Sort implements Comparator<Module>{
-    	
+    public class Comparators implements ToIntFunction<Module> {
 		@Override
-		public int compare(Module o, Module o1) {
-			if (Sigma.hud.fr1.getWidth(o.getName()) < Sigma.hud.fr1.getWidth(o1.getName())) {
-				return 1;
-			} else if (Sigma.hud.fr1.getWidth(o.getName()) > Sigma.hud.fr1.getWidth(o1.getName())){
-				return -1;
-			}
-			return 0;
+		public int applyAsInt(Module o) {
+			return (int) Sigma.hud.fr1.getWidth(o.getName());
 		}
+    	
     }
-
+    
     protected void renderTooltip(ScaledResolution sr, float partialTicks)
     {
         if (this.mc.getRenderViewEntity() instanceof EntityPlayer)

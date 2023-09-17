@@ -8,6 +8,7 @@ import net.sigma.event.Event;
 import net.sigma.module.ModuleManager;
 import net.sigma.module.modules.*;
 import net.sigma.ui.*;
+import net.sigma.ui.font.FontManager;
 import viamcp.ViaMCP;
 
 public class Sigma {
@@ -28,13 +29,11 @@ public class Sigma {
 		mc.gameSettings.showInventoryAchievementHint = false;
 		mc.displayGuiScreen(new Switcher());
 		Display.setTitle("Sigma - Remake Version Switcher");
-		
 		try {
+			FontManager.init();
 			ViaMCP.getInstance().start();
 			ViaMCP.getInstance().initAsyncSlider();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		initialized = false;

@@ -27,7 +27,6 @@ import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
 import net.sigma.ui.ClassicMainMenu;
 import net.sigma.ui.JelloMainMenu;
-import net.sigma.ui.Switcher;
 
 import org.apache.commons.io.Charsets;
 import org.apache.logging.log4j.LogManager;

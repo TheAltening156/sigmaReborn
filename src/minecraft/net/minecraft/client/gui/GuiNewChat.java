@@ -11,7 +11,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
 import net.sigma.Sigma;
-import net.sigma.ui.FontManager;
+import net.sigma.ui.font.FontManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

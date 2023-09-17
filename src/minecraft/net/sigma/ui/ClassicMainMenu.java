@@ -16,10 +16,12 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.sigma.ui.components.ClassicButtons;
+import net.sigma.ui.font.FontManager;
+import net.sigma.ui.font.TTFFontRenderer;
 import net.sigma.utils.DrawUtils;
 
 public class ClassicMainMenu extends GuiScreen {
-	private TTFFontRenderer fr = FontManager.getFontQuality("SFM", 0.57f);
+	private TTFFontRenderer fr;
 	private int animatedMouseX;
 	private int animatedMouseY;
 
@@ -37,6 +39,8 @@ public class ClassicMainMenu extends GuiScreen {
 		buttonList.add(new ClassicButtons(4, wIdth - 65, hEight + 75, "Accounts"));
 		buttonList.add(new ClassicButtons(5, wIdth + 65, hEight + 75, "Exit"));
 		buttonList.add(new ClassicButtons(6, wIdth, hEight + 75, "Agora"));
+		if (fr == null)
+		fr = FontManager.getFontQuality("SFM", 0.57f);
 		
 	}
 	
