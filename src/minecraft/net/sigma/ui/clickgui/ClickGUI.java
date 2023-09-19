@@ -94,17 +94,19 @@ public class ClickGUI extends GuiScreen {
 			int posY = c.posY;
 			
 			drawRect(posX, posY, posX + 100, posY + 30, new Color(240, 240, 240, 248).getRGB());
-			catfr.drawString(c.name, posX + 10, posY + 8, new Color(99, 99, 99, 178).getRGB());
+			catfr.drawString(c.name, posX + 10, posY + 9, new Color(99, 99, 99, 178).getRGB());
 			if (c.showMods) {
-				
 				drawRect(posX, posY + 30, posX + 100, posY + 160, -1);
-				
 				int modX = posX + 12;
 				int modY = posY + 32;
-				for (Module m : ModuleManager.mods) {				
+				int settsX = width / 2 - 110;
+				int settsY = height / 2 - 110;
+				int settsWidth = this.width / 2 + 100;
+				for (Module m : ModuleManager.mods) {
 					if (c == m.getCat()) {
 						drawRect(modX - 12, modY - 2, modX + 88, modY + 12.8, m.isToggled() ? new Color(28, 158, 255).getRGB() : this.showSettings ? -1 : isHovered(modX - 12, modY - 2, modX + 88, modY + 12.8, mouseX, mouseY) ? new Color(229, 229, 229).getRGB() : -1);
-						modulesfr.drawString(m.getName(), m.isToggled() ? modX + 5 : modX, modY - 0.5f, m.isToggled() ? -1 : 1);
+						modulesfr.drawString(m.getName(), m.isToggled() ? modX + 5 : modX, modY, m.isToggled() ? -1 : 1);
+						//mc.fontRendererObj.drawString("", - 50,  - 50, -1);
 						modY += 15;	
 					}
 				}
@@ -115,77 +117,83 @@ public class ClickGUI extends GuiScreen {
 			DrawUtils.drawImage(this.width / 2 - 370, this.height / 2 - 463, 750, 900, new ResourceLocation("Sigma/shadow.png"));
 			DrawUtils.drawRoundedRect(this.width / 2 - 125, this.height / 2 - 150, this.width / 2 + 125, this.height / 2 + 150, 12, -1);
 		}
-			
-		int settsX = width / 2 - 110;
-		int settsY = height / 2 - 110;
-		int settsWidth = this.width / 2 + 100;
-		for (Module m : ModuleManager.mods) {
-			if (m.showSettings) {
-				fr.drawString(m.getDesc(), settsX, settsY - 27, new Color(125, 125, 125).getRGB());
-				bigfr.drawString(m.getName(), this.width / 2 - 125, this.height / 2 - 180, -1);
-
-			}
-			for (Settings s : m.settings) {
-				if (m.showSettings) {
-					if (isHovered(settsX, settsY, settsX + fr.getWidth(s.name) + 11, settsY + 14, mouseX, mouseY)) {
-						FontManager.jelloMedium.drawString(s.name, settsX - 11, this.height / 2 + 150, -1);
-						fr.drawString(s.desc, settsX - 8 + FontManager.jelloMedium.getWidth(s.name), this.height / 2 + 150, -1);
+		for (Cat c : Cat.values()) {
+			int posX = c.posX;
+			int posY = c.posY;
+			if (c.showMods) {
+				int modX = posX + 12;
+				int modY = posY + 32;
+				int settsX = width / 2 - 110;
+				int settsY = height / 2 - 110;
+				int settsWidth = this.width / 2 + 100;
+				for (Module m : ModuleManager.mods) {
+					if (m.showSettings) {
+						fr.drawString(m.getDesc(), settsX, settsY - 27, new Color(125, 125, 125).getRGB());
+						bigfr.drawString(m.getName(), this.width / 2 - 125, this.height / 2 - 180, -1);
 					}
-					if (s instanceof ModeSettings) {
-						ModeSettings modes = (ModeSettings) s;
-						settsfr.drawString(s.name, settsX, settsY, 1);
-						fr.drawString(modes.isShown ? "<" : ">", (int) (settsWidth - fr.getWidth(">")), settsY, isHovered(settsWidth - 60, settsY, settsWidth, settsY + 13, mouseX, mouseY) || modes.isShown ? new Color(55, 55, 55).getRGB() : new Color(145, 145, 145).getRGB());
-						fr.drawString(s.getVar().toString(), settsWidth - 60, settsY, new Color(55, 55, 55).getRGB());
-						for (String ss : modes.modess) {
-							if (modes.isShown) {
-								if (isHovered(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, mouseX, mouseY)) {
-									drawRect(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, new Color(0, 0, 0, 35).getRGB());
-								}
-								fr.drawString(ss, settsWidth - 60, settsY + 15, 1);
-								settsY += 14;
+					for (Settings s : m.settings) {
+						if (m.showSettings) {
+							if (isHovered(settsX, settsY, settsX + fr.getWidth(s.name) + 11, settsY + 14, mouseX, mouseY)) {
+								FontManager.jelloMedium.drawString(s.name, settsX - 11, this.height / 2 + 150, -1);
+								fr.drawString(s.desc, settsX - 8 + FontManager.jelloMedium.getWidth(s.name), this.height / 2 + 150, -1);
 							}
-						}
-					}
-					if (s instanceof NumberSettings) {
-						NumberSettings num = (NumberSettings) s;
-						double min = num.getMin();
-						double max = num.getMax();
-						double diff = (max - min);
-						double rdrWidth = 61 * ((num.getVar() - min) / diff);
-						DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth, settsY + 6, 4, new Color(213, 229, 248).getRGB());
-						DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth - 60 + rdrWidth, settsY + 6, 4, new Color(37, 146, 237).getRGB());
-						DrawUtils.drawShadowImage(settsX + rdrWidth + 128, settsY - 12, 42, 34, new ResourceLocation("Sigma/shadow1.png"));
-						DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
+							if (s instanceof ModeSettings) {
+								ModeSettings modes = (ModeSettings) s;
+								settsfr.drawString(s.name, settsX, settsY, 1);
+								fr.drawString(modes.isShown ? String.valueOf('\\' + "/") : "<", (int) (settsWidth - fr.getWidth(">")), settsY, isHovered(settsWidth - 60, settsY, settsWidth, settsY + 13, mouseX, mouseY) || modes.isShown ? new Color(55, 55, 55).getRGB() : new Color(145, 145, 145).getRGB());
+								fr.drawString(s.getVar().toString(), settsWidth - 60, settsY, new Color(55, 55, 55).getRGB());
+								for (String ss : modes.modess) {
+									if (modes.isShown) {
+										if (isHovered(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, mouseX, mouseY)) {
+											drawRect(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, new Color(0, 0, 0, 35).getRGB());
+										}
+										fr.drawString(ss, settsWidth - 60, settsY + 15, 1);
+										settsY += 14;
+									}
+								}
+							}
+							if (s instanceof NumberSettings) {
+								NumberSettings num = (NumberSettings) s;
+								double min = num.getMin();
+								double max = num.getMax();
+								double diff = (max - min);
+								double rdrWidth = 61 * ((num.getVar() - min) / diff);
+								DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth, settsY + 6, 4, new Color(213, 229, 248).getRGB());
+								DrawUtils.drawRoundedRect(settsWidth - 60, settsY + 2, settsWidth - 60 + rdrWidth, settsY + 6, 4, new Color(37, 146, 237).getRGB());
+								DrawUtils.drawShadowImage(settsX + rdrWidth + 128, settsY - 12, 42, 34, new ResourceLocation("Sigma/shadow1.png"));
+								DrawUtils.drawCircle(settsX + rdrWidth + 148.5, settsY + 4, 6, Color.WHITE.getRGB());
 
-						double mouseSnap = mouseX;
-                        mouseSnap = Math.max((settsWidth - 60), mouseSnap);
-                        mouseSnap = Math.min(settsWidth, mouseSnap);
-                        double test = (mouseSnap - (settsWidth - 60))/(settsWidth-(settsWidth - 60));
-                        double val = min + test * diff;
-                        if (isHovered(settsWidth - 68, settsY - 2, settsWidth + 5, settsY + 13, mouseX, mouseY) && Mouse.isButtonDown(0)) {
-                       		num.setValue(val);
-                       	}
-						settsfr.drawString(s.name, settsX, settsY, 1);
-						if (isHovered(settsWidth - 68, settsY - 2, settsWidth + 5, settsY + 13, mouseX, mouseY)) {
-							fr.drawString(s.getVar().toString(), settsWidth - fr.getWidth(s.getVar().toString()) - 65, settsY - 2, new Color(125, 125, 125).getRGB());
-						}
-					}
-					if (s instanceof BooleanSettings) {
-						BooleanSettings b = (BooleanSettings) s;
-						settsfr.drawString(s.name, settsX, settsY, 1);	
-						if (b.toggled ) { 
-							DrawUtils.drawCircle(settsWidth - 6, settsY + 6, 6, new Color(59, 153, 252).getRGB());
-							GlStateManager.color(1, 1, 1);
-							DrawUtils.drawImage(settsWidth - 12, settsY, 12, 12, new ResourceLocation("Sigma/bool1.png"));
-						} else {
-							DrawUtils.drawCircle(settsWidth - 6, settsY + 6, 6, new Color(200, 200, 200).getRGB());
-						}
+								double mouseSnap = mouseX;
+		                        mouseSnap = Math.max((settsWidth - 60), mouseSnap);
+		                        mouseSnap = Math.min(settsWidth, mouseSnap);
+		                        double test = (mouseSnap - (settsWidth - 60))/(settsWidth-(settsWidth - 60));
+		                        double val = min + test * diff;
+		                        if (isHovered(settsWidth - 68, settsY - 2, settsWidth + 5, settsY + 13, mouseX, mouseY) && Mouse.isButtonDown(0)) {
+		                       		num.setValue(val);
+		                       	}
+								settsfr.drawString(s.name, settsX, settsY, 1);
+								if (isHovered(settsWidth - 68, settsY - 2, settsWidth + 5, settsY + 13, mouseX, mouseY)) {
+									fr.drawString(s.getVar().toString(), settsWidth - fr.getWidth(s.getVar().toString()) - 65, settsY - 2, new Color(125, 125, 125).getRGB());
+								}
+							}
+							if (s instanceof BooleanSettings) {
+								BooleanSettings b = (BooleanSettings) s;
+								settsfr.drawString(s.name, settsX, settsY, 1);	
+								if (b.toggled ) { 
+									DrawUtils.drawCircle(settsWidth - 6, settsY + 6, 6, new Color(59, 153, 252).getRGB());
+									GlStateManager.color(1, 1, 1);
+									DrawUtils.drawImage(settsWidth - 12, settsY, 12, 12, new ResourceLocation("Sigma/bool1.png"));
+								} else {
+									DrawUtils.drawCircle(settsWidth - 6, settsY + 6, 6, new Color(200, 200, 200).getRGB());
+								}
 
-					}
+							}
 
-					settsY += 18;
+							settsY += 18;
+						}
+					}	
 				}
-			}	
+			}
 		}
 		oldX = mouseX;
 		oldY = mouseY;

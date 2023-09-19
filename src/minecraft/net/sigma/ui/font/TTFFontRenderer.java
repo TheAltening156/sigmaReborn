@@ -166,10 +166,10 @@ public class TTFFontRenderer{
         boolean strikethrough = false;
         boolean obfuscated = false;
         int length = text.length();
-        double multiplier = 255.0 * (shadow ? 4 : 1);
-        //ColorUtils.setColor(color);
+        int  multiplier = (int) (255.0 * (shadow ? 4 : 1));
         Color c = new Color(color);
-        GL11.glColor4d(c.getRed() / multiplier, c.getGreen() / multiplier, c.getBlue() / multiplier, (double)c.getAlpha());
+        new Color(c.getRed() / multiplier, c.getGreen() / multiplier, c.getBlue() / multiplier, (int)c.getAlpha()).getRGB();
+       // GL11.glColor4d(c.getRed() / multiplier, c.getGreen() / multiplier, c.getBlue() / multiplier, (double)c.getAlpha());
         for (int i = 0; i < length; ++i) {
             char character = text.charAt(i);
             char previous = (i > 0) ? text.charAt(i - 1) : '.';
@@ -368,13 +368,4 @@ public class TTFFontRenderer{
 	public float getHeight() {
 		return (float) getHeight("I");
 	}
-
-	public void drawStringScaled(String text, double givenX, double givenY, int color, double givenScale) {
-		/*GlStateManager.pushMatrix();
-        GlStateManager.translate(givenX, givenY, 0);
-        GlStateManager.scale(givenScale, givenScale, givenScale);
-        this.drawCenteredString(text, 0, 0, color);
-        GlStateManager.popMatrix();*/
-        this.drawCenteredString(text, givenX, givenY, color);
-    }
 }

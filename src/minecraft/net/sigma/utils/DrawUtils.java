@@ -152,7 +152,7 @@ public class DrawUtils extends GuiScreen{
 		glEnable(GL_BLEND);
 		glEnable(GL_POLYGON_SMOOTH);
 		glBegin(GL_POLYGON);
-		for (int iiiiiiiiiii : new int[4])
+		for (int ii : new int[4])//color glitch fix
 		for (int i = 0; i <= 360; i++) {
 				glVertex2d(x + Math.sin((i * Math.PI) / 180.0D) * offset,
 						   y + Math.cos((i * Math.PI) / 180.0D) * offset);

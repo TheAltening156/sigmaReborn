@@ -42,7 +42,7 @@ public class JelloMainMenu extends GuiScreen {
 		buttonList.add(new JelloButtons(2, x + 122, y, "Connect"));
 		buttonList.add(new JelloButtons(3, x + 183, y, "Settings"));
 		buttonList.add(new JelloButtons(4, x + 244, y, "AltManager"));
-		if (sigmaJello == null) {
+		if (sigmaJello == null || bigfr == null) {
 			bigfr = FontManager.getFontQuality("JelloLight1", 10);
 			sigmaJello = FontManager.getFontQuality("jellolight2", 1.1f);
 		}
@@ -61,12 +61,12 @@ public class JelloMainMenu extends GuiScreen {
 		
 		DrawUtils.drawShadowImage(this.width / 2 - 115, this.height / 2 - 90, 235, 90, new ResourceLocation("Sigma/shadow.png"));
 		
-		//bigfr.drawStringScaled("Jello", this.width / 2 + 5, this.height / 2 - 55, -1, 10f);
+		bigfr.drawCenteredString("Jello", this.width / 2 + 5, this.height / 2 - 55, -1);
 				
 		DrawUtils.drawShadowImage(1, this.height - 14, sigmaJello.getWidth("\u00a9 Sigma Reborn") + 25, 9, new ResourceLocation("Sigma/arraylistshadow.png"));
-		sigmaJello.drawStringScaled("\u00a9 Sigma Reborn", 4, this.height - 16, -1, 1.1f);
+		sigmaJello.drawString("\u00a9 Sigma Reborn", 4, this.height - 16, -1);
 		String namem = "Jello for Sigma " + Sigma.version + " - 1.7.x - 1.19.x";
-		sigmaJello.drawStringScaled(namem, width - sigmaJello.getWidth(namem) + 69, this.height - 16, -1, 1.1f);
+		sigmaJello.drawString(namem, width - sigmaJello.getWidth(namem) + 69, this.height - 16, -1);
 		
 		for (GuiButton b : this.buttonList) {
 			if (b instanceof JelloButtons) {

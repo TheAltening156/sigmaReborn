@@ -64,7 +64,7 @@ public class JelloButtons extends GuiButton{
 	public void drawName() {
 		if (hovered) 
 			DrawUtils.drawShadowImage(xPosition - 30, yPosition + 60, fr.getWidth(name) + 75, 16, new ResourceLocation("Sigma/shadow.png"));
-		fr.drawStringScaled(name, xPosition + 32, yPosition + 66, new Color(255, 255, 255, (int)val).getRGB(),0.5f + val/180);
+		fr.drawCenteredString(name, xPosition + 32, yPosition + 66, -1/*new Color(255, 255, 255, (int)val).getRGB(),0.5f + val/180*/);
 		
 	}
 }
