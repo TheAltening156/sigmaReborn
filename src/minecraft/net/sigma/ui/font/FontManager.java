@@ -27,24 +27,28 @@ public class FontManager {
 
 	
 	public static void init() throws Exception{
-		jelloLight = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/jellolight.ttf")).deriveFont(0, 18), true);
-		jelloMedium = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/jellomedium.ttf")).deriveFont(0, 18), true);
-		jelloRegular = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/jelloregular.ttf")).deriveFont(0, 18), true);
-		jellofr = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/Jello.ttf")).deriveFont(0, 18), true);
-		sigmaJello = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/jellolight2.ttf")).deriveFont(0, 18), true);
-		sfUi = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/sfui.ttf")).deriveFont(0, 18), true);
-		sfm = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/SFM.ttf")).deriveFont(0, 18), true);
-		sigma = new TTFFontRenderer(Font.createFont(0, Font.class.getResourceAsStream("/assets/minecraft/Sigma/sigma.ttf")).deriveFont(0, 18), true);
+		jelloLight = createFont("jellolight");
+		jelloMedium = createFont("jellomedium");
+        jelloRegular = createFont("jelloregular");
+        jellofr = createFont("Jello");
+        sigmaJello = createFont("jellolight2");
+        sfUi = createFont("sfui");
+        sfm = createFont("SFM");
+        sigma = createFont("sigma");	
 	}
 
-
 	public static TTFFontRenderer getFontQuality(String fontName, float size) {
+		TTFFontRenderer font = null;
 		try {
-			return new TTFFontRenderer(Font.createFont(0, FontManager.class.getResourceAsStream("/assets/minecraft/Sigma/" + fontName + ".ttf")).deriveFont(0, 18 * size), true);
+			return font = new TTFFontRenderer(Font.createFont(0, FontManager.class.getResourceAsStream("/assets/minecraft/Sigma/" + fontName + ".ttf")).deriveFont(0, 18 * size), true);
 		} catch (IOException | FontFormatException e) {
 			e.printStackTrace();
 		}
 		return jelloLight;
+	}
+
+	public static TTFFontRenderer createFont(String fontName) {
+		return getFontQuality(fontName, 1);
 	}
 	
 }

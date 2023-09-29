@@ -8,6 +8,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.vecmath.Vector2f;
 
@@ -22,6 +23,7 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.sigma.utils.DrawUtils;
 
 public class TTFFontRenderer{
 	private Font font;
@@ -122,7 +124,7 @@ public class TTFFontRenderer{
     	x = (int)x;
     	y = (int)y;
         GL11.glTranslated(0.5, 0.5, 0.0);
-        this.renderString(text, x, y, Colors.getColor(1), true);
+        this.renderString(text, x, y, TTFFontRenderer.Colors.getColor(1), true);
         GL11.glTranslated(-0.5, -0.5, 0.0);
         this.renderString(text, x, y, color, false);
     }
@@ -132,13 +134,13 @@ public class TTFFontRenderer{
     	y = (int)y;
         GlStateManager.pushMatrix();
         GL11.glTranslated(0.5, 0.0, 0.0);
-        this.renderString(text, x, y, Colors.getColor(0), false);
+        this.renderString(text, x, y, TTFFontRenderer.Colors.getColor(0), false);
         GL11.glTranslated(1.0, 0.0, 0.0);
-        this.renderString(text, x, y, Colors.getColor(0), false);
+        this.renderString(text, x, y, TTFFontRenderer.Colors.getColor(0), false);
         GL11.glTranslated(-0.5, 0.5, 0.0);
-        this.renderString(text, x, y, Colors.getColor(0), false);
+        this.renderString(text, x, y, TTFFontRenderer.Colors.getColor(0), false);
         GL11.glTranslated(0.0, -1.0, 0.0);
-        this.renderString(text, x, y, Colors.getColor(0), false);
+        this.renderString(text, x, y, TTFFontRenderer.Colors.getColor(0), false);
         GL11.glTranslated(0.0, 0.5, 0.0);
         this.renderString(text, x, y, color, false);
         GL11.glTranslated(-1.0, -1.0, 0.0);
@@ -166,16 +168,19 @@ public class TTFFontRenderer{
         boolean strikethrough = false;
         boolean obfuscated = false;
         int length = text.length();
-        int  multiplier = (int) (255.0 * (shadow ? 4 : 1));
-        Color c = new Color(color);
-        new Color(c.getRed() / multiplier, c.getGreen() / multiplier, c.getBlue() / multiplier, (int)c.getAlpha()).getRGB();
-       // GL11.glColor4d(c.getRed() / multiplier, c.getGreen() / multiplier, c.getBlue() / multiplier, (double)c.getAlpha());
+        float r = (float)(color >> 16 & 255) / 255.0F;
+        float g = (float)(color >> 8 & 255) / 255.0F;
+        float b = (float)(color & 255) / 255.0F;
+        float a = (float)(color >> 24 & 255) / 255.0F;
+        //GL11.glColor4d(r,g,b,a);
+        //GlStateManager.color(r, g, b, a);
+        //DrawUtils.setColor(color);
         for (int i = 0; i < length; ++i) {
             char character = text.charAt(i);
             char previous = (i > 0) ? text.charAt(i - 1) : '.';
             if (previous != '\u00A7') {
                 if (character == '\u00A7' && i < length) {
-                    int index = "0123456789abcdefklmnor".indexOf(text.toLowerCase(Locale.ENGLISH).charAt(i + 1));
+                    int index = "0123456789abcdefklmnor".indexOf(text.toLowerCase().charAt(i + 1));
                     if (index < 16) {
                         obfuscated = false;
                         strikethrough = false;
@@ -215,7 +220,7 @@ public class TTFFontRenderer{
                 }
                 else if (character <= '\u00ff') {
                     if (obfuscated) {
-                        character += (char)TTFFontRenderer.RANDOM_OFFSET;
+                        character += (char)java.util.concurrent.ThreadLocalRandom.current().nextInt(-15, 15);
                     }
                     this.drawChar(character, characterData, x, y);
                     CharacterData charData = characterData[character];
@@ -295,7 +300,7 @@ public class TTFFontRenderer{
     	x = (int)x;
     	y = (int)y;
         CharacterData charData = characterData[character];
-        charData.bind();
+        GL11.glBindTexture(3553, charData.textureId);
         GL11.glBegin(7);
         GL11.glTexCoord2f(0.0f, 0.0f);
         GL11.glVertex2d((double)x, (double)y);
@@ -354,9 +359,6 @@ public class TTFFontRenderer{
             this.textureId = textureId;
         }
         
-        public void bind() {
-            GL11.glBindTexture(3553, this.textureId);
-        }
     }
 
 	public void drawCenteredStringWithShadow(String name, double x, double y, int color) {
@@ -368,4 +370,32 @@ public class TTFFontRenderer{
 	public float getHeight() {
 		return (float) getHeight("I");
 	}
+	
+	public static class Colors {
+		public static int getColor(Color color) {
+			return getColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		}
+
+		public static int getColor(int brightness) {
+			return getColor(brightness, brightness, brightness, 255);
+		}
+
+		public static int getColor(int brightness, int alpha) {
+			return getColor(brightness, brightness, brightness, alpha);
+		}
+
+		public static int getColor(int red, int green, int blue) {
+			return getColor(red, green, blue, 255);
+		}
+
+		public static int getColor(int red, int green, int blue, int alpha) {
+			int color = 0;
+			color |= alpha << 24;
+			color |= red << 16;
+			color |= green << 8;
+			color |= blue;
+			return color;
+		}
+	}
+	
 }

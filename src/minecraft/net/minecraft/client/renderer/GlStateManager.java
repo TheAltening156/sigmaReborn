@@ -362,6 +362,10 @@ public class GlStateManager
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
         }
     }
+    public static void bindeTexture(int texture)
+    {
+    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
+    }
 
     public static void bindCurrentTexture()
     {

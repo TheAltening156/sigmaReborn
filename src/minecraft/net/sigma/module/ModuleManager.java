@@ -1,6 +1,7 @@
 package net.sigma.module;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.sigma.Sigma;
@@ -10,18 +11,19 @@ public class ModuleManager {
 	public static ArrayList<Module> mods = new ArrayList<Module>();
 	
 	public ModuleManager() {
-		//to add module to game, use -> register(new moduleName());
-		register(new Fly());
-		register(Sigma.anims = new Animations());
-		register(Sigma.clickgui = new Clickgui());
-		register(Sigma.hud = new HUD());
-		register(new AutoRespawn());
+		/*to add module to game, use -> register(new module1(),
+												 new module2());*/
+		register(new Fly(),
+				 Sigma.anims = new Animations(),
+				 Sigma.clickgui = new Clickgui(),
+				 Sigma.hud = new HUD(),
+				 new AutoRespawn());
 		
 		
 	}
 	
-	public boolean register(Module m) {
-		return mods.add(m);
+	public boolean register(Module... m) {
+		return mods.addAll(Arrays.asList(m));
 	}
 	
 	public static List<Module> getToggledModules() {

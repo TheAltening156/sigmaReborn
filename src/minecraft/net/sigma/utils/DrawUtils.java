@@ -21,7 +21,7 @@ public class DrawUtils extends GuiScreen{
         float red = (float)(color >> 16 & 255) / 255.0F;
         float green = (float)(color >> 8 & 255) / 255.0F;
         float blue = (float)(color & 255) / 255.0F;
-		GL11.glColor4f(red, green, blue, alpha);
+		GlStateManager.color(red, green, blue, alpha);
 	}
 	
 	public static void drawImage(final int x, final int y, final int width, final int height, final ResourceLocation image, Color color) {

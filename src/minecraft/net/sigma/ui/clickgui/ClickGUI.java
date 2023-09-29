@@ -106,7 +106,6 @@ public class ClickGUI extends GuiScreen {
 					if (c == m.getCat()) {
 						drawRect(modX - 12, modY - 2, modX + 88, modY + 12.8, m.isToggled() ? new Color(28, 158, 255).getRGB() : this.showSettings ? -1 : isHovered(modX - 12, modY - 2, modX + 88, modY + 12.8, mouseX, mouseY) ? new Color(229, 229, 229).getRGB() : -1);
 						modulesfr.drawString(m.getName(), m.isToggled() ? modX + 5 : modX, modY, m.isToggled() ? -1 : 1);
-						//mc.fontRendererObj.drawString("", - 50,  - 50, -1);
 						modY += 15;	
 					}
 				}
@@ -130,9 +129,7 @@ public class ClickGUI extends GuiScreen {
 					if (m.showSettings) {
 						fr.drawString(m.getDesc(), settsX, settsY - 27, new Color(125, 125, 125).getRGB());
 						bigfr.drawString(m.getName(), this.width / 2 - 125, this.height / 2 - 180, -1);
-					}
-					for (Settings s : m.settings) {
-						if (m.showSettings) {
+						for (Settings s : m.settings) {
 							if (isHovered(settsX, settsY, settsX + fr.getWidth(s.name) + 11, settsY + 14, mouseX, mouseY)) {
 								FontManager.jelloMedium.drawString(s.name, settsX - 11, this.height / 2 + 150, -1);
 								fr.drawString(s.desc, settsX - 8 + FontManager.jelloMedium.getWidth(s.name), this.height / 2 + 150, -1);
@@ -140,10 +137,10 @@ public class ClickGUI extends GuiScreen {
 							if (s instanceof ModeSettings) {
 								ModeSettings modes = (ModeSettings) s;
 								settsfr.drawString(s.name, settsX, settsY, 1);
-								fr.drawString(modes.isShown ? String.valueOf('\\' + "/") : "<", (int) (settsWidth - fr.getWidth(">")), settsY, isHovered(settsWidth - 60, settsY, settsWidth, settsY + 13, mouseX, mouseY) || modes.isShown ? new Color(55, 55, 55).getRGB() : new Color(145, 145, 145).getRGB());
 								fr.drawString(s.getVar().toString(), settsWidth - 60, settsY, new Color(55, 55, 55).getRGB());
+								fr.drawString(modes.isShown ? ">" : "<", (int) (settsWidth - fr.getWidth(">")), settsY, isHovered(settsWidth - 60, settsY, settsWidth, settsY + 13, mouseX, mouseY) || modes.isShown ? new Color(55, 55, 55).getRGB() : new Color(145, 145, 145).getRGB());
 								for (String ss : modes.modess) {
-									if (modes.isShown) {
+									if (modes.isShown && !ss.contains(s.getVar().toString())) {
 										if (isHovered(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, mouseX, mouseY)) {
 											drawRect(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, new Color(0, 0, 0, 35).getRGB());
 										}
@@ -179,16 +176,12 @@ public class ClickGUI extends GuiScreen {
 							if (s instanceof BooleanSettings) {
 								BooleanSettings b = (BooleanSettings) s;
 								settsfr.drawString(s.name, settsX, settsY, 1);	
+								DrawUtils.drawCircle(settsWidth - 6, settsY + 6, 6, b.toggled ? new Color(59, 153, 252).getRGB() : new Color(200, 200, 200).getRGB());
 								if (b.toggled ) { 
-									DrawUtils.drawCircle(settsWidth - 6, settsY + 6, 6, new Color(59, 153, 252).getRGB());
 									GlStateManager.color(1, 1, 1);
 									DrawUtils.drawImage(settsWidth - 12, settsY, 12, 12, new ResourceLocation("Sigma/bool1.png"));
-								} else {
-									DrawUtils.drawCircle(settsWidth - 6, settsY + 6, 6, new Color(200, 200, 200).getRGB());
 								}
-
 							}
-
 							settsY += 18;
 						}
 					}	
@@ -265,7 +258,7 @@ public class ClickGUI extends GuiScreen {
 									modes.isShown = !modes.isShown;
 								}
 								for (String ss : modes.modess) {
-									if (modes.isShown) {
+									if (modes.isShown && !ss.contains(s.getVar().toString())) {
 										if (isHovered(settsWidth - 63, settsY + 13.5, settsWidth - 5, settsY + 27.5, mouseX, mouseY)) {
 											modes.setVar(ss);
 											modes.isShown = false;

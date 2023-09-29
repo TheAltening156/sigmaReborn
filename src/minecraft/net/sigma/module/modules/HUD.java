@@ -20,13 +20,15 @@ import net.sigma.utils.DrawUtils;
 public class HUD extends Module{
 	public TTFFontRenderer fr;
 	public TTFFontRenderer fr1;
+	public ScaledResolution sr;
 	public static TTFFontRenderer bigfr;
 	public static GuiOverlayDebug xddd = new GuiOverlayDebug(Minecraft.getMinecraft());
 	
 	public HUD() {
 		super("ActiveMods", "Show Activated Modules", Cat.RENDER);
+		sr = new ScaledResolution(mc);
 		fr = FontManager.jelloLight;
-		fr1 = FontManager.getFontQuality("jellolight", 1.1f);
+		fr1 = FontManager.getFontQuality("jellolight", 1.15f);
 		bigfr = FontManager.getFontQuality("jellolight2", 3.3f);
 	}
 	
@@ -37,25 +39,14 @@ public class HUD extends Module{
 	
 	@Override
 	public void onIngameGui(EventIngameGui e) {
-		ScaledResolution sr = new ScaledResolution(mc);
-		List list = xddd.getDebugInfoRight();
-		List list1 = xddd.call();
-		float sigmaX;
-		float sigmaY = 5;
+		sr = new ScaledResolution(mc);
 		float modY = 2;
-		sigmaX =mc.gameSettings.showDebugInfo ? sr.getScaledWidth() / 2 : 45;
-		
-		for (float i = 0; i < list.size(); ++i) {
+		for (float i = 0; i < xddd.getDebugInfoRight().size(); ++i) {
 			float i1 = 2 + fr.getHeight() * i;
 			modY = mc.gameSettings.showDebugInfo ? i1 + 13 : 5;
         }
-		DrawUtils.drawShadowImage((float) (sigmaX - 12 - fr.getWidth("Sigma") / 2) - (!mc.gameSettings.showDebugInfo ? 35 : 28), sigmaY - 10, 123, 50, new ResourceLocation("Sigma/arraylistshadow.png"));
-
-		bigfr.drawCenteredString("Sigma", sigmaX + (!mc.gameSettings.showDebugInfo ? 4 : 0), sigmaY + 10, new Color(255, 255, 255, 130).getRGB());
-		FontManager.jelloMedium.drawCenteredString("Jello", sigmaX - (!mc.gameSettings.showDebugInfo ? 28 : 31), sigmaY + 28, new Color(255, 255, 255, 170).getRGB());
-		
 		for (Module m : ModuleManager.getToggledModules()) {
-			DrawUtils.drawShadowImage((float) (sr.getScaledWidth() - fr1.getWidth(m.getName()) - 14), modY - 5, 67, (float) fr1.getHeight(m.getName()) + 14, new ResourceLocation("Sigma/arraylistshadow.png"));
+			DrawUtils.drawShadowImage((float) (sr.getScaledWidth() - fr1.getWidth(m.getName()) - 16), modY - 12, fr1.getWidth(m.getName())*2, (float) fr1.getHeight(m.getName()) + 20, new ResourceLocation("Sigma/arraylistshadow.png"));
 			fr1.drawString(m.getName(), sr.getScaledWidth() - fr1.getWidth(m.getName()) - 8, modY, -1);
 			modY += 13;
 		}

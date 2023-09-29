@@ -3,6 +3,8 @@ package net.minecraft.client.gui;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,6 +55,7 @@ import net.sigma.module.Module;
 import net.sigma.module.ModuleManager;
 import net.sigma.ui.font.FontManager;
 import net.sigma.ui.font.TTFFontRenderer;
+import net.sigma.utils.DrawUtils;
 import optifine.Config;
 import optifine.CustomColors;
 
@@ -364,7 +367,17 @@ public class GuiIngame extends Gui
             this.overlayPlayerList.updatePlayerList(true);
             this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
         }
+    	float sigmaX;
+		float sigmaY = 5;
+		float modY = 2;
+		sigmaX =mc.gameSettings.showDebugInfo ? Sigma.hud.sr.getScaledWidth() / 2 : 45;
+		
+		
+		DrawUtils.drawShadowImage((float) (sigmaX - 12 - Sigma.hud.fr.getWidth("Sigma") / 2) - (!mc.gameSettings.showDebugInfo ? 35 : 28), sigmaY - 10, 123, 50, new ResourceLocation("Sigma/arraylistshadow.png"));
 
+		Sigma.hud.bigfr.drawCenteredString("Sigma", sigmaX + (!mc.gameSettings.showDebugInfo ? 4 : 0), sigmaY + 10, new Color(255, 255, 255, 130).getRGB());
+		FontManager.jelloMedium.drawCenteredString("Jello", sigmaX - (!mc.gameSettings.showDebugInfo ? 28 : 31), sigmaY + 28, new Color(255, 255, 255, 170).getRGB());
+		
         if (Sigma.initialized && Display.getTitle().contains("Sigma Jello - Remake")) {
         	Collections.sort(ModuleManager.mods, Comparator.comparingInt(new Comparators()).reversed());
         } else if (Sigma.initialized && Display.getTitle().contains("Classic Sigma - Remake")){
